@@ -3,15 +3,15 @@ import profilepic from "../assets/profpic.png";
 import { TypeAnimation } from "react-type-animation";
 import ShinyEffect from "./ShinyEffect";
 import {
-    AiFillApple,
-    AiFillCamera,
+  AiFillApple,
+  AiFillCamera,
   AiOutlineGithub,
   AiOutlineInstagram,
   AiOutlineLink,
   AiOutlineLinkedin,
 } from "react-icons/ai";
 import {
-    DiAndroid,
+  DiAndroid,
   DiCss3,
   DiEclipse,
   DiHtml5,
@@ -24,7 +24,7 @@ import Resume from "../assets/Resume.pdf";
 
 const Hero = () => {
   return (
-    <div className="mt-24 max-w-[1200px] mx-auto relative">
+    <div className="mt-20 max-w-[1200px] mx-auto relative" id="hero">
       <div className="grid md:grid-cols-2 place-items-center gap-8">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -88,15 +88,27 @@ const Hero = () => {
             </motion.button>
 
             <div className="flex gap-6 flex-row text-4xl md:text-6xl text-purple-400 z-20">
-              <motion.a whileHover={{ scale: 1.2 }} href="#">
+              <motion.a
+                whileHover={{ scale: 1.2 }}
+                href="https://github.com/ksm007"
+                target="_blank"
+              >
                 <AiOutlineGithub />
               </motion.a>
 
-              <motion.a whileHover={{ scale: 1.2 }} href="#">
+              <motion.a
+                whileHover={{ scale: 1.2 }}
+                href="https://linkedin.com/in/kartik-marathe-360013168"
+                target="_blank"
+              >
                 <AiOutlineLinkedin />
               </motion.a>
 
-              <motion.a whileHover={{ scale: 1.2 }} href="#">
+              <motion.a
+                whileHover={{ scale: 1.2 }}
+                href="https://www.instagram.com/kartikmarathe007"
+                target="_blank"
+              >
                 <AiOutlineInstagram />
               </motion.a>
             </div>
@@ -126,7 +138,7 @@ const Hero = () => {
         <DiJavascript1 className="text-yellow-500 mx-2" />
         <DiReact className="text-blue-500 mx-2" />
         <DiNodejsSmall className="text-green-500 mx-2" />
-        <DiAndroid className="text-green-600 mx-2"/>
+        <DiAndroid className="text-green-600 mx-2" />
       </motion.div>
 
       <div className="absolute inset-0 hidden md:block">

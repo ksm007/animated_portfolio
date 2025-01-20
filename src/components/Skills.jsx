@@ -64,13 +64,7 @@ const Skills = () => {
     >
       <Reveal>
         <h2 className="text-3xl font-bold mb-4 text-center">Skills</h2>
-        <p className="text-center mb-8">
-          I worked on various frontend and fullstack projects. Check them{" "}
-          <a href="#" className="underline">
-            there
-          </a>
-          .
-        </p>
+
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skills.map((skill, index) => (
