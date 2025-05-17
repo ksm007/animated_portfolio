@@ -16,8 +16,6 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v3
-        with:
-          node-version: "16.x" # ← specify your Node version
 
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
@@ -26,7 +24,7 @@ jobs:
         run: npm run build
 
       - name: Upload production-ready build files
-        uses: actions/upload-artifact@v3.1.3 # ← pin to v3.1.3
+        uses: actions/upload-artifact@v4
         with:
           name: production-files
           path: ./dist
@@ -38,11 +36,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3 # ← ensures you have your workflow files
-
       - name: Download artifact
-        uses: actions/download-artifact@v3.1.3 # ← pin to the matching patch
+        uses: actions/download-artifact@v4
         with:
           name: production-files
           path: ./dist
