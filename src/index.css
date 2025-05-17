@@ -1,34 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Sans:ital@0;1&family=Space+Grotesk:wght@300..700&display=swap');
+/* theme.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Space Grotesk", sans-serif;
-  background-color: #190b1f;
-}
+@layer base {
+  :root {
+    /* Light theme defaults */
+    --bg-color: #ffffff;        /* light grey */
+    --text-color: #1f1f1f;
+    --primary-color: #9ca3af;   /* grey-500 */
+    /* --shiny-gradient: radial-gradient(circle, rgba(178, 19, 202, 0.2), transparent 70%); */
+  }
 
-h2 {
-  @apply text-xl md:text-4xl
-}
+  [data-theme="light"] {
+    --bg-color: #ffffff;
+    --text-color: #1f1f1f;
+    --primary-color: #9ca3af;
+    --card-bg: #e3eaf5;
+  }
 
-p {
-  @apply text-xl tracking-tight leading-relaxed
-}
+  [data-theme="dark"] {
+    --bg-color: #0f1f44;        /* navy blue */
+    --text-color: #f3f4f6;
+    --primary-color: #4f46e5;   /* indigo-600 */
+    --card-bg: #1e293b; /* slate-800 */
+  }
 
-span {
-  @apply text-purple-600
-}
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: "Space Grotesk", sans-serif;
+  }
 
+  h2 {
+    @apply text-xl md:text-4xl;
+  }
 
-.shiny-effect {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-  background: radial-gradient(circle, rgba(178, 19, 202, 0.2), transparent 70%);
-}
+  p {
+    @apply text-xl tracking-tight leading-relaxed;
+  }
 
-.bg-primary-color {
-    @apply bg-purple-600
+  span {
+    color: var(--primary-color);
+  }
+
+  .bg-primary-color {
+    background-color: var(--primary-color);
+  }
+
+  .shiny-effect {
+    background: var(--shiny-gradient);
+  }
 }
