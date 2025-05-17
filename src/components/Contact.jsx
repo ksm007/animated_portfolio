@@ -8,7 +8,14 @@ const Contact = () => {
 
   const sendEmail = (e) => {
     e.preventDefault();
-    console.log(form.current);
+    if (
+      form.current.name.value === "" ||
+      form.current.email.value === "" ||
+      form.current.message.value === ""
+    ) {
+      alert("Please fill all the fields");
+      return;
+    }
 
     emailjs
       .sendForm(
@@ -94,6 +101,7 @@ const Contact = () => {
               placeholder="Your Name ..."
               name="name"
               className="mb-2 w-full rounded-md border border-purple-600 py-2 pl-2 pr-4"
+              required
             />
             <input
               type="email"
@@ -101,6 +109,7 @@ const Contact = () => {
               placeholder="Your Email ..."
               name="email"
               className="mb-2 w-full rounded-md border border-purple-600 py-2 pl-2 pr-4"
+              required
             />
             <textarea
               name="message"
@@ -109,6 +118,7 @@ const Contact = () => {
               rows="4"
               placeholder="Your Message ..."
               className="mb-2 w-full rounded-md border border-purple-600 py-2 pl-2 pr-4"
+              required
             />
             <button
               type="submit"
