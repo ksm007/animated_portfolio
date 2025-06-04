@@ -1,8 +1,23 @@
-# React + Vite
+# Animated Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive portfolio website built with React, Vite, and Tailwind CSS. This project features smooth animations and a clean, professional design to showcase my work and skills.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ⚡ Built with Vite for fast development and optimized builds
+- 🎨 Styled with Tailwind CSS for rapid UI development
+- ✨ Smooth animations and transitions
+- 📱 Fully responsive design
+- 🛠️ Easy to customize and extend
+
+
+## 🙏 Acknowledgments
+
+- [Vite](https://vitejs.dev/)
+- [React](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/) 
+
+## Live Demo
+
+[Live Demo](https://ksm007.github.io/animated_portfolio/)
