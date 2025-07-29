@@ -1,12 +1,22 @@
+import { Suspense, lazy } from "react";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
-import Skills from "./components/Skills";
-import Portfolio from "./components/Portfolio";
-import Experience from "./components/Experience";
-import Education from "./components/Education";
-import Achievements from "./components/Achievements";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
+
+// Lazy load components that are not immediately visible
+const Skills = lazy(() => import("./components/Skills"));
+const Portfolio = lazy(() => import("./components/Portfolio"));
+const Experience = lazy(() => import("./components/Experience"));
+const Education = lazy(() => import("./components/Education"));
+const Achievements = lazy(() => import("./components/Achievements"));
+const Contact = lazy(() => import("./components/Contact"));
+const Footer = lazy(() => import("./components/Footer"));
+
+// Loading component for better UX
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center py-16">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+  </div>
+);
 
 function App() {
   return (
@@ -16,18 +26,36 @@ function App() {
         {/* Scrollytelling Hero - Interactive Story */}
         <Hero />
 
-        {/* Traditional Sections */}
-        <Experience />
-        <Education />
-        <Skills />
-        <Achievements />
+        {/* Traditional Sections - Lazy loaded */}
+        <Suspense fallback={<LoadingSpinner />}>
+          <Experience />
+        </Suspense>
 
-        <Portfolio />
+        <Suspense fallback={<LoadingSpinner />}>
+          <Education />
+        </Suspense>
+
+        <Suspense fallback={<LoadingSpinner />}>
+          <Skills />
+        </Suspense>
+
+        <Suspense fallback={<LoadingSpinner />}>
+          <Achievements />
+        </Suspense>
+
+        <Suspense fallback={<LoadingSpinner />}>
+          <Portfolio />
+        </Suspense>
         <div id="portfolio-traditional" className="hidden"></div>
 
-        <Contact />
+        <Suspense fallback={<LoadingSpinner />}>
+          <Contact />
+        </Suspense>
       </main>
-      <Footer />
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }
