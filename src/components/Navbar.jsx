@@ -3,15 +3,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import { ThemeSwitcher } from "./ThemeSwitcher";
-import logo from "../assets/logo.svg"; // Adjust the path as necessary
-import { cn } from "@/lib/utils";
 const navLinks = [
   { href: "#hero", label: "Home" },
   { href: "#experience", label: "Experience" },
   { href: "#education", label: "Education" },
   { href: "#skills", label: "Skills" },
   { href: "#achievements", label: "Achievements" },
-  { href: "#portfolio-traditional", label: "Portfolio" }, // Updated to match lazy-loaded section
   { href: "#portfolio", label: "Portfolio" },
   { href: "#contact", label: "Contact" },
 ];
