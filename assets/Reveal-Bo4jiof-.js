@@ -1,0 +1,2 @@
+import{u as r,a as l,j as n,m as c}from"./animation-vendor-CyiohohI.js";import{r as s}from"./react-vendor-C9B-VUhr.js";const u=({children:o,width:a="fit-content"})=>{const t=s.useRef(null),e=r(t,{once:!0}),i=l();return s.useEffect(()=>{e&&i.start("visible")},[e,i]),n.jsx("div",{ref:t,style:{position:"relative",width:a,overflow:"hidden"},children:n.jsx(c.div,{variants:{hidden:{opacity:0,y:75},visible:{opacity:1,y:0}},initial:"hidden",animate:i,transition:{duration:.5,delay:.25},children:o})})};export{u as R};
+//# sourceMappingURL=Reveal-Bo4jiof-.js.map
