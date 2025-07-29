@@ -3,12 +3,16 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import { ThemeSwitcher } from "./ThemeSwitcher";
-
+import logo from "../assets/logo.svg"; // Adjust the path as necessary
+import { cn } from "@/lib/utils";
 const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#skills", label: "Skills" },
-  { href: "#portfolio", label: "Portfolio" },
+  { href: "#hero", label: "Home" },
   { href: "#experience", label: "Experience" },
+  { href: "#education", label: "Education" },
+  { href: "#skills", label: "Skills" },
+  { href: "#achievements", label: "Achievements" },
+  { href: "#portfolio-traditional", label: "Portfolio" }, // Updated to match lazy-loaded section
+  { href: "#portfolio", label: "Portfolio" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -18,9 +22,13 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-tonal-primary/80 backdrop-blur-md border-b border-border">
       <div className="max-w-[1200px] mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          <a href="#home" className="text-xl font-bold text-primary-foreground">
-            Portfolio
+        <div className="flex items-center justify-between h-16 ">
+          <a href="#hero" className="text-xl font-bold bg-transparent">
+            <img
+              src="logo.png"
+              alt="Logo"
+              className="h-8 rounded-md bg-slate-200"
+            />
           </a>
 
           {/* Desktop */}
