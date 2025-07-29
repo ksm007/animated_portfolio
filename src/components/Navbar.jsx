@@ -1,114 +1,78 @@
-import React, { useState, useEffect } from "react";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
-import { Link } from "react-scroll";
+// Navbar.jsx
+import { useState } from "react";
 import { motion } from "framer-motion";
-import logo from "../assets/logo.png";
+import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
-const Navbar = () => {
-  const [nav, setNav] = useState(false);
-  const [theme, setTheme] = useState("light");
+const navLinks = [
+  { href: "#home", label: "Home" },
+  { href: "#skills", label: "Skills" },
+  { href: "#portfolio", label: "Portfolio" },
+  { href: "#experience", label: "Experience" },
+  { href: "#contact", label: "Contact" },
+];
 
-  useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    if (stored) {
-      setTheme(stored);
-    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setTheme("dark");
-    }
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleNav = () => setNav((prev) => !prev);
-  const closeNav = () => setNav(false);
-  const toggleTheme = () =>
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-
-  const menuVariants = {
-    open: {
-      x: 0,
-      transition: { stiffness: 20, damping: 15 },
-    },
-    closed: {
-      x: "-100%",
-      transition: { stiffness: 20, damping: 15 },
-    },
-  };
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed top-0 left-0 w-full bg-opacity-70 backdrop-blur-md z-50">
-      <div className="max-w-[1300px] mx-auto flex items-center px-12 h-20 text-xl">
-        {/* Logo */}
-        <a href="#">
-          <img src={logo} alt="Logo" className="h-12" />
-        </a>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-tonal-primary/80 backdrop-blur-md border-b border-border">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
+          <a href="#home" className="text-xl font-bold text-primary-foreground">
+            Portfolio
+          </a>
 
-        {/* nav links + theme toggle + mobile icon */}
-        <div className="flex items-center gap-4 ml-auto">
-          <ul className="hidden md:flex gap-12 z-10 cursor-pointer">
-            {["hero", "skills", "portfolio", "contact"].map((section) => (
-              <li key={section}>
-                <Link
-                  to={section}
-                  smooth={true}
-                  offset={section === "hero" ? 10 : -50}
-                  duration={500}
-                >
-                  {section.charAt(0).toUpperCase() + section.slice(1)}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {/* Desktop */}
+          <div className="hidden md:flex items-center gap-8">
+            <ul className="flex items-center gap-6">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="text-sm font-medium text-muted-foreground hover:bg-light-blue hover:text-primary transition-colors rounded-md px-2 py-1"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <ThemeSwitcher />
+          </div>
 
-          {/* theme toggle */}
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded focus:outline-none"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? (
-              <HiOutlineSun size={24} />
-            ) : (
-              <HiOutlineMoon size={24} />
-            )}
-          </button>
-
-          {/* mobile menu button */}
-          <div onClick={toggleNav} className="md:hidden z-50">
-            {nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />}
+          {/* Mobile */}
+          <div className="flex items-center gap-4 md:hidden">
+            <ThemeSwitcher />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-2xl text-muted-foreground hover:text-primary transition-colors"
+            >
+              {isOpen ? <RiCloseLine /> : <RiMenu3Line />}
+            </button>
           </div>
         </div>
-
-        {/* sliding mobile menu */}
-        <motion.div
-          initial={false}
-          animate={nav ? "open" : "closed"}
-          variants={menuVariants}
-          className="fixed left-0 top-0 w-full min-h-screen bg-gray-900 z-40"
-        >
-          <ul className="mt-24 space-y-8 text-4xl font-semibold text-center">
-            {["skills", "portfolio", "contact"].map((section) => (
-              <li key={section}>
-                <Link
-                  to={section}
-                  onClick={closeNav}
-                  smooth={true}
-                  offset={50}
-                  duration={500}
-                >
-                  {section.charAt(0).toUpperCase() + section.slice(1)}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
       </div>
-    </div>
-  );
-};
 
-export default Navbar;
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : -20 }}
+        transition={{ duration: 0.2 }}
+        className={`${isOpen ? "block" : "hidden"} md:hidden bg-tonal-primary`}
+      >
+        <ul className="px-6 py-4 space-y-4 border-t border-border">
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="block text-sm font-medium text-muted-foreground hover:bg-light-blue hover:text-primary transition-colors rounded-md px-2 py-1"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </motion.div>
+    </nav>
+  );
+}

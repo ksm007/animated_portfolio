@@ -1,57 +1,194 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
+import { HiOutlineCalendar } from "react-icons/hi";
+import { BsBriefcaseFill, BsBuilding } from "react-icons/bs";
+import { IoLocationSharp } from "react-icons/io5";
 
 const experiences = [
   {
-    company: "Boeing",
-    period: "Aug 2022 - Jul 2024",
-    description:
-      "In my recent role, I spearheaded the development of over 100 RESTful APIs using Spring Boot, achieving a 95% unit test coverage with rigorous testing through JUnit and Mockito, ensuring high code quality and reliability. I streamlined the CI/CD deployment workflows for both Java and Angular projects via GitLab, cutting deployment times in half and reducing manual errors by 40%, thereby enhancing operational efficiency. By integrating Apache Solr for extensive datasets surpassing 10 million records, I achieved a 70% reduction in query latency and a 95% improvement in search accuracy. Additionally, I optimized database query performance, boosting response times by 25% for data-intensive applications. To enhance user experience, I expanded the CMS functionality with over eight new APIs, increasing user access efficiency by 20%.",
+    company: "The Boeing Company",
     role: "Associate Software Engineer",
+    location: "Bangalore, India",
+    period: "Aug 2022 - Jul 2024",
+    description: "Full-stack development and system architecture",
+    achievements: [
+      "Designed and shipped 50+ RESTful APIs using Spring Boot, achieving 99%-unit test coverage through JUnit 5 and Mockito, while implementing multi-layer testing strategy across controller, service, and repository layers",
+      "Orchestrated GitLab CI/CD for Java and Angular applications by adding staged builds, running tests, and environment-specific deployments, cutting release time from 90 minutes to 10 minutes and reducing manual errors",
+      "Architected a Solr 8 search stack for 10k+ PDF documents: parsed PDFs to JSON, ingested via REST APIs, enabled fuzzy and phrase search with faceting, tuned schema and ranking, unified with an Angular 14 UI for rapid querying",
+      "Expanded content management system (CMS) functionality by creating over 10+ APIs, boosting user access efficiency by 50%",
+      "Migrated a legacy Java desktop app to a Spring Boot web platform, cutting server and maintenance costs by USD 72,000 per year through streamlined infrastructure and automated deployments",
+    ],
+    technologies: [
+      "Spring Boot",
+      "Angular",
+      "Solr",
+      "GitLab CI/CD",
+      "JUnit",
+      "Mockito",
+      "Java",
+      "REST APIs",
+    ],
   },
   {
-    company: "Ikshana (IISc)",
-    period: "Jan 2022 - Aug 2022",
-    description:
-      "I conducted in-depth research on over 10 critical parameters influencing the causes and treatments of urinary incontinence, leveraging advanced technologies to propose optimized solutions. My efforts led to the integration of a mobile interface for remote device control, enhancing functionality by 40% and significantly improving the user experience with seamless interaction. Additionally, I designed and prototyped a cost-effective incontinence management device, achieving a 20% reduction in production costs through innovative design improvements and strategic material optimization.",
+    company: "Ikshana (Indian Institute of Science)",
     role: "Research Intern",
+    location: "Bangalore, India",
+    period: "Jan 2022 - Jul 2022",
+    description: "Data analysis and mobile app development",
+    achievements: [
+      "Developed Python ETL scripts with Pandas to clean and merge 10+ clinical and sensor data streams, enabling deep analysis of urinary incontinence symptom patterns and powering scikit-learn models for summary reports",
+      "Created an Android app in Android Studio using Java, implementing Android BLE APIs for remote device control",
+    ],
+    technologies: [
+      "Python",
+      "Pandas",
+      "scikit-learn",
+      "Android Studio",
+      "Java",
+      "BLE APIs",
+    ],
   },
   {
-    company: "Team Chimera",
-    period: "Oct 2018 - May 2024",
-    description:
-      "I implemented an LTE-based data acquisition system for real-time transmission, providing over eight data points and a responsive UI integrated with more than 15 APIs, ensuring efficient data flow and seamless user interaction. My enhancements to the Battery Management System (BMS) included monitoring three key parameters and integrating hardware with software, leading to a 20% improvement in overall performance. Additionally, I refined sensor placements to optimize data accuracy, achieving a 40% increase in system reliability by strategically minimizing data inconsistencies.",
+    company: "Team Chimera (R V College of Engineering)",
     role: "Data Acquisition Engineer",
+    location: "Bangalore, India",
+    period: "Jul 2019 - May 2022",
+    description: "Real-time data acquisition and telemetry",
+    achievements: [
+      "Implemented an LTE-based data acquisition system for real-time transmission, delivering 8+ data points like voltage, SoC, and thermal data and a responsive UI integrated with 5+ APIs, ensuring efficient data flow and user interaction",
+      "Refined temperature sensor placement for accurate data reads, validated on dyno-bench and on-track runs to stabilize telemetry",
+    ],
+    technologies: [
+      "LTE",
+      "Data Acquisition",
+      "APIs",
+      "Sensor Integration",
+      "Real-time Systems",
+    ],
   },
 ];
 
 const Experience = () => {
   return (
-    <div className="p-8 max-w-[600px] mx-auto">
-      <h1 className="text-4xl  200 font-bold text-center mb-12">Experience</h1>
-      <motion.div className="space-y-8" initial="hidden" animate="visible">
-        {experiences.map((experience, index) => (
-          <Reveal>
-            <motion.div
-              key={index}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.3 }}
-              transition={{ duration: 1 }}
-              className=" border border-purple-600 p-6 rounded-lg shadow-md
-                    hover:shadow-xl transition-shadow duration-300"
-            >
-              <h2 className=" 100 text-2xl font-semibold">
-                {experience.company}
-              </h2>
-              <p className=" 400 text-sm">{experience.role}</p>
-              <p className=" 300">{experience.period}</p>
-              <p className=" 400 mt-4 text-base">{experience.description}</p>
-            </motion.div>
-          </Reveal>
-        ))}
-      </motion.div>
+    <div
+      className="py-16 md:py-24 bg-gradient-to-b from-transparent to-primary-50/30"
+      id="experience"
+    >
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <Reveal>
+          <h2 className="text-4xl font-bold text-center mb-16">
+            Professional <span className="text-primary-600">Experience</span>
+          </h2>
+
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="timeline-line left-8 md:left-1/2" />
+
+            <div className="space-y-16">
+              {experiences.map((experience, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="relative"
+                >
+                  {/* Timeline dot */}
+                  <div className="timeline-dot absolute left-8 md:left-1/2 mt-8" />
+
+                  {/* Content */}
+                  <div className="ml-16 md:ml-0 md:grid md:grid-cols-2 md:gap-12 items-start">
+                    <div
+                      className={`${
+                        index % 2 === 0 ? "md:col-start-1" : "md:col-start-2"
+                      } w-full min-w-0`}
+                    >
+                      <div className="experience-card text-left w-full">
+                        {/* Header */}
+                        <div className="mb-6">
+                          <div className="flex items-start gap-4 mb-4">
+                            <div className="p-3 rounded-xl bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300 flex-shrink-0">
+                              <BsBriefcaseFill size={24} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="text-xl font-bold text-primary-700 dark:text-primary-300 mb-1 leading-tight">
+                                {experience.role}
+                              </h3>
+                              <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium">
+                                <BsBuilding className="flex-shrink-0" />
+                                <span className="truncate">
+                                  {experience.company}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Meta info */}
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-sm text-muted-foreground bg-primary-50 dark:bg-primary-900/20 rounded-lg p-3">
+                            <div className="flex items-center gap-2">
+                              <IoLocationSharp className="text-primary-500" />
+                              <span>{experience.location}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <HiOutlineCalendar className="text-primary-500" />
+                              <span className="font-medium">
+                                {experience.period}
+                              </span>
+                            </div>
+                          </div>
+
+                          <p className="text-muted-foreground italic mt-4 text-base leading-relaxed">
+                            {experience.description}
+                          </p>
+                        </div>
+
+                        {/* Achievements */}
+                        <div className="mb-6">
+                          <h4 className="text-sm font-semibold text-primary-600 dark:text-primary-400 mb-3 uppercase tracking-wide">
+                            Key Achievements
+                          </h4>
+                          <ul className="space-y-3">
+                            {experience.achievements.map((achievement, i) => (
+                              <li
+                                key={i}
+                                className="flex items-start gap-3 text-sm leading-relaxed"
+                              >
+                                <div className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2 flex-shrink-0" />
+                                <span className="text-foreground/90 break-words">
+                                  {achievement}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* Technologies */}
+                        <div>
+                          <h4 className="text-sm font-semibold text-primary-600 dark:text-primary-400 mb-3 uppercase tracking-wide">
+                            Technologies
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                            {experience.technologies.map((tech, i) => (
+                              <span
+                                key={i}
+                                className="px-3 py-1.5 rounded-full text-xs font-medium bg-primary-100 text-primary-700 dark:bg-primary-800 dark:text-primary-200 border border-primary-200 dark:border-primary-700 hover:bg-primary-200 dark:hover:bg-primary-700 transition-colors"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+      </div>
     </div>
   );
 };
