@@ -3,7 +3,6 @@ import project1 from "../assets/project1.png";
 import project2 from "../assets/project2.png";
 import project3 from "../assets/project3.png";
 import project4 from "../assets/project4.png";
-import project5 from "../assets/project5.png";
 import {
   AiOutlineGithub,
   AiOutlineLink,
@@ -24,6 +23,7 @@ import { Dialog, DialogOverlay, DialogContent } from "../components/ui/dialog";
 import { motion, AnimatePresence } from "framer-motion";
 import { fetchGitHubRepos } from "../lib/utils";
 import { PROJECT_CONFIG } from "../config/projects";
+import { getEnhancedProjectData } from "../lib/githubReadme";
 import ErrorBoundary from "./ErrorBoundary";
 import { ProjectSkeletonGrid } from "./ProjectSkeleton";
 
@@ -253,88 +253,6 @@ MongoDB, Express.js, React.js, Node.js, Socket.io, JWT, Mongoose, Redis, AWS S3,
       "MongoDB",
       "JWT",
       "PWA",
-    ],
-    isFeatured: true,
-  },
-  {
-    img: project5,
-    title: "Angular Todo App",
-    description:
-      "Feature-rich task management application with Firebase backend, user authentication, advanced filtering, and real-time synchronization.",
-    links: {
-      site: "https://angulartodo-ecdd5.web.app/login",
-      github: "https://github.com/ksm007/AngularToDo",
-    },
-    content: `**Project Overview:**
-A sophisticated task management application built with Angular and Firebase, offering comprehensive todo functionality with real-time synchronization, advanced filtering, and a modern Material Design interface.
-
-**Core Features:**
-• **Task Management**: Create, edit, delete, and organize tasks with rich text descriptions
-• **User Authentication**: Secure Firebase Authentication with email/password and social login options
-• **Real-time Sync**: Instant synchronization across all devices using Firebase Realtime Database
-• **Advanced Filtering**: Multiple filter options including status, priority, date, and custom categories
-• **Task Categories**: Organize tasks into custom categories with color coding and icons
-• **Due Date Management**: Set deadlines with calendar integration and reminder notifications
-• **Priority Levels**: Assign priority levels with visual indicators and sorting options
-
-**Technical Implementation:**
-• **Frontend Framework**: Angular with TypeScript for type-safe, scalable development
-• **UI Components**: Angular Material for consistent, accessible, and responsive design
-• **Backend Services**: Firebase suite including Authentication, Firestore, and Cloud Functions
-• **State Management**: RxJS observables for reactive programming and efficient data flow
-• **Routing**: Angular Router with guards for protected routes and navigation management
-• **Forms**: Reactive forms with validation and error handling
-
-**Advanced Functionality:**
-• **Task Search**: Full-text search across task titles, descriptions, and categories
-• **Bulk Operations**: Select multiple tasks for batch editing, deletion, or status updates
-• **Task Templates**: Create reusable task templates for recurring activities
-• **Progress Tracking**: Visual progress indicators and completion statistics
-• **Data Export**: Export tasks to various formats (JSON, CSV) for backup and analysis
-• **Offline Support**: Progressive Web App capabilities with offline task management
-
-**User Experience Features:**
-• **Drag & Drop**: Intuitive task reordering and category management
-• **Keyboard Shortcuts**: Power user features with customizable keyboard shortcuts
-• **Dark Mode**: Toggle between light and dark themes with system preference detection
-• **Responsive Design**: Optimized for desktop, tablet, and mobile devices
-• **Accessibility**: WCAG compliant with screen reader support and keyboard navigation
-
-**Firebase Integration:**
-• **Authentication**: Multi-provider authentication with email verification
-• **Firestore Database**: NoSQL database for scalable task storage and querying
-• **Cloud Functions**: Serverless functions for background processing and notifications
-• **Hosting**: Firebase Hosting for fast, secure web app deployment
-• **Analytics**: User behavior tracking and app performance monitoring
-
-**Security Features:**
-• **Data Validation**: Client and server-side validation for data integrity
-• **Security Rules**: Firestore security rules ensuring users can only access their own data
-• **Input Sanitization**: Protection against XSS and injection attacks
-• **Secure Authentication**: Firebase Auth with secure token management
-
-**Performance Optimizations:**
-• **Lazy Loading**: Route-based code splitting for faster initial load times
-• **OnPush Strategy**: Change detection optimization for improved performance
-• **Virtual Scrolling**: Efficient rendering of large task lists
-• **Caching**: Strategic caching of frequently accessed data
-• **Bundle Optimization**: Tree shaking and minification for smaller bundle sizes
-
-**Development Features:**
-• **Testing**: Comprehensive unit and integration tests with Jasmine and Karma
-• **CI/CD**: Automated deployment pipeline with GitHub Actions
-• **Code Quality**: ESLint and Prettier for consistent code formatting
-• **Documentation**: Comprehensive code documentation and user guides
-
-**Technologies Used:**
-Angular, TypeScript, Angular Material, Firebase Auth, Firestore, Firebase Hosting, RxJS, Progressive Web App, Jasmine, Karma`,
-    tags: [
-      "Angular",
-      "TypeScript",
-      "Firebase",
-      "Material Design",
-      "PWA",
-      "RxJS",
     ],
     isFeatured: true,
   },
@@ -632,6 +550,8 @@ const PortfolioContent = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [isLoading, setIsLoading] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const [enhancedProject, setEnhancedProject] = useState(null);
+  const [isLoadingReadme, setIsLoadingReadme] = useState(false);
 
   useEffect(() => {
     const loadGitHubRepos = async () => {
@@ -669,14 +589,38 @@ const PortfolioContent = () => {
     loadGitHubRepos();
   }, []);
 
-  const handleOpenDialog = (project) => {
+  const handleOpenDialog = async (project) => {
     setSelectedProject(project);
     setIsDialogOpen(true);
+    setEnhancedProject(null);
+
+    // Only enhance GitHub repos with README data
+    if (
+      project.isGitHubRepo &&
+      project.originalName &&
+      project.originalName !== "AngularToDo"
+    ) {
+      setIsLoadingReadme(true);
+      try {
+        const enhanced = await getEnhancedProjectData(
+          PROJECT_CONFIG.GITHUB_USERNAME,
+          project.originalName,
+          project
+        );
+        setEnhancedProject(enhanced);
+      } catch (error) {
+        console.error("Error loading README data:", error);
+      } finally {
+        setIsLoadingReadme(false);
+      }
+    }
   };
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
     setSelectedProject(null);
+    setEnhancedProject(null);
+    setIsLoadingReadme(false);
   };
 
   const filteredProjects = projects.filter((project) => {
@@ -903,6 +847,106 @@ const PortfolioContent = () => {
                     )}
                   </p>
                 </div>
+
+                {/* README Loading Indicator */}
+                {isLoadingReadme && (
+                  <div className="flex items-center justify-center gap-2 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
+                    <span className="text-sm text-primary">
+                      Loading README data...
+                    </span>
+                  </div>
+                )}
+
+                {/* README-Enhanced Content (Only for GitHub repos) */}
+                {enhancedProject && selectedProject?.isGitHubRepo && (
+                  <div className="space-y-6 p-4 bg-gradient-to-r from-primary-50/50 to-secondary-50/50 dark:from-primary-900/10 dark:to-secondary-900/10 rounded-lg border border-primary-200/30 dark:border-primary-800/30">
+                    <div className="flex items-center gap-2 mb-4">
+                      <AiOutlineCode className="text-primary" size={20} />
+                      <h4 className="text-lg font-semibold text-primary">
+                        From GitHub README
+                      </h4>
+                    </div>
+
+                    {/* Enhanced Features */}
+                    {safeGet(enhancedProject, "features", []).length > 0 && (
+                      <div className="space-y-3">
+                        <h5 className="text-md font-semibold text-foreground">
+                          Key Features
+                        </h5>
+                        <ul className="space-y-2">
+                          {enhancedProject.features.map((feature, i) => (
+                            <li
+                              key={i}
+                              className="flex items-start gap-2 text-sm text-muted-foreground"
+                            >
+                              <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Enhanced Tech Stack */}
+                    {safeGet(enhancedProject, "techStack", []).length > 0 && (
+                      <div className="space-y-3">
+                        <h5 className="text-md font-semibold text-foreground">
+                          Tech Stack
+                        </h5>
+                        <div className="flex flex-wrap gap-2">
+                          {enhancedProject.techStack.map((tech, i) => (
+                            <span
+                              key={i}
+                              className="px-2 py-1 rounded-md text-xs font-medium bg-primary-100 text-primary-700 dark:bg-primary-800 dark:text-primary-200 border border-primary-200 dark:border-primary-700"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Deployment Info */}
+                    {safeGet(enhancedProject, "deployment") && (
+                      <div className="space-y-3">
+                        <h5 className="text-md font-semibold text-foreground">
+                          Deployment
+                        </h5>
+                        <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                          <p className="text-sm text-green-700 dark:text-green-300">
+                            {enhancedProject.deployment}
+                          </p>
+                          {safeGet(enhancedProject, "liveDemo") && (
+                            <a
+                              href={enhancedProject.liveDemo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 mt-2 text-sm text-green-600 dark:text-green-400 hover:underline"
+                            >
+                              <HiExternalLink size={14} />
+                              View Live Demo
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Installation Instructions */}
+                    {safeGet(enhancedProject, "installation") && (
+                      <div className="space-y-3">
+                        <h5 className="text-md font-semibold text-foreground">
+                          Installation & Setup
+                        </h5>
+                        <div className="p-3 bg-secondary-50 dark:bg-secondary-900/20 rounded-lg border border-secondary-200 dark:border-secondary-800">
+                          <pre className="text-xs text-secondary-700 dark:text-secondary-300 whitespace-pre-wrap">
+                            {enhancedProject.installation}
+                          </pre>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {/* GitHub Stats */}
                 <ProjectStats project={selectedProject} />
