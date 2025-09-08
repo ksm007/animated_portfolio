@@ -710,3 +710,77 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Quality of Life Utilities */
+@layer utilities {
+  /* High contrast mode */
+  .high-contrast {
+    filter: contrast(150%) brightness(110%);
+  }
+
+  .high-contrast * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  .high-contrast .bg-primary {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+  }
+
+  .high-contrast .text-primary {
+    color: #000000 !important;
+  }
+
+  .high-contrast .border {
+    border-color: #000000 !important;
+  }
+
+  /* Smooth focus indicators */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Reduced motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.8);
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Prevent horizontal overflow */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+}
