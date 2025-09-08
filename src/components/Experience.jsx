@@ -72,18 +72,18 @@ const experiences = [
 const Experience = () => {
   return (
     <div
-      className="py-16 md:py-24 bg-gradient-to-b from-transparent to-primary-50/30"
+      className="py-16 md:py-24 bg-gradient-to-b from-transparent to-primary-50/30 overflow-x-hidden"
       id="experience"
     >
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal>
           <h2 className="text-4xl font-bold text-center mb-16">
             Professional <span className="text-primary-600">Experience</span>
           </h2>
 
           <div className="relative">
-            {/* Timeline line */}
-            <div className="timeline-line left-8 md:left-1/2" />
+            {/* Timeline line - only on medium screens and up */}
+            <div className="timeline-line md:left-1/2 hidden md:block" />
 
             <div className="space-y-16">
               {experiences.map((experience, index) => (
@@ -95,28 +95,31 @@ const Experience = () => {
                   viewport={{ once: true }}
                   className="relative"
                 >
-                  {/* Timeline dot */}
-                  <div className="timeline-dot absolute left-8 md:left-1/2 mt-8" />
+                  {/* Timeline dot - only on medium screens and up */}
+                  <div className="timeline-dot absolute md:left-1/2 mt-8 hidden md:block" />
 
                   {/* Content */}
-                  <div className="ml-16 md:ml-0 md:grid md:grid-cols-2 md:gap-12 items-start">
+                  <div className="md:grid md:grid-cols-2 md:gap-8 lg:gap-12 items-start">
                     <div
                       className={`${
                         index % 2 === 0 ? "md:col-start-1" : "md:col-start-2"
-                      } w-full min-w-0`}
+                      } w-full min-w-0 max-w-full`}
                     >
-                      <div className="experience-card text-left w-full">
+                      <div className="experience-card text-left w-full overflow-hidden">
                         {/* Header */}
-                        <div className="mb-6">
-                          <div className="flex items-start gap-4 mb-4">
-                            <div className="p-3 rounded-xl bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300 flex-shrink-0">
-                              <BsBriefcaseFill size={24} />
+                        <div className="mb-4 sm:mb-6">
+                          <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
+                            <div className="p-2 sm:p-3 rounded-xl bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300 flex-shrink-0">
+                              <BsBriefcaseFill
+                                size={20}
+                                className="sm:w-6 sm:h-6"
+                              />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h3 className="text-xl font-bold text-primary-700 dark:text-primary-300 mb-1 leading-tight">
+                              <h3 className="text-lg sm:text-xl font-bold text-primary-700 dark:text-primary-300 mb-1 leading-tight">
                                 {experience.role}
                               </h3>
-                              <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium">
+                              <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium text-sm sm:text-base">
                                 <BsBuilding className="flex-shrink-0" />
                                 <span className="truncate">
                                   {experience.company}
@@ -126,36 +129,38 @@ const Experience = () => {
                           </div>
 
                           {/* Meta info */}
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-sm text-muted-foreground bg-primary-50 dark:bg-primary-900/20 rounded-lg p-3">
-                            <div className="flex items-center gap-2">
-                              <IoLocationSharp className="text-primary-500" />
-                              <span>{experience.location}</span>
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-xs sm:text-sm text-muted-foreground bg-primary-50 dark:bg-primary-900/20 rounded-lg p-2 sm:p-3">
+                            <div className="flex items-center gap-2 min-w-0">
+                              <IoLocationSharp className="text-primary-500 flex-shrink-0" />
+                              <span className="truncate">
+                                {experience.location}
+                              </span>
                             </div>
-                            <div className="flex items-center gap-2">
-                              <HiOutlineCalendar className="text-primary-500" />
-                              <span className="font-medium">
+                            <div className="flex items-center gap-2 min-w-0">
+                              <HiOutlineCalendar className="text-primary-500 flex-shrink-0" />
+                              <span className="font-medium truncate">
                                 {experience.period}
                               </span>
                             </div>
                           </div>
 
-                          <p className="text-muted-foreground italic mt-4 text-base leading-relaxed">
+                          <p className="text-muted-foreground italic mt-3 sm:mt-4 text-sm sm:text-base leading-relaxed">
                             {experience.description}
                           </p>
                         </div>
 
                         {/* Achievements */}
-                        <div className="mb-6">
-                          <h4 className="text-sm font-semibold text-primary-600 dark:text-primary-400 mb-3 uppercase tracking-wide">
+                        <div className="mb-4 sm:mb-6">
+                          <h4 className="text-xs sm:text-sm font-semibold text-primary-600 dark:text-primary-400 mb-2 sm:mb-3 uppercase tracking-wide">
                             Key Achievements
                           </h4>
-                          <ul className="space-y-3">
+                          <ul className="space-y-2 sm:space-y-3">
                             {experience.achievements.map((achievement, i) => (
                               <li
                                 key={i}
-                                className="flex items-start gap-3 text-sm leading-relaxed"
+                                className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm leading-relaxed"
                               >
-                                <div className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2 flex-shrink-0" />
+                                <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-primary-500 mt-1.5 sm:mt-2 flex-shrink-0" />
                                 <span className="text-foreground/90 break-words">
                                   {achievement}
                                 </span>
@@ -166,14 +171,14 @@ const Experience = () => {
 
                         {/* Technologies */}
                         <div>
-                          <h4 className="text-sm font-semibold text-primary-600 dark:text-primary-400 mb-3 uppercase tracking-wide">
+                          <h4 className="text-xs sm:text-sm font-semibold text-primary-600 dark:text-primary-400 mb-2 sm:mb-3 uppercase tracking-wide">
                             Technologies
                           </h4>
-                          <div className="flex flex-wrap gap-2">
+                          <div className="flex flex-wrap gap-1.5 sm:gap-2">
                             {experience.technologies.map((tech, i) => (
                               <span
                                 key={i}
-                                className="px-3 py-1.5 rounded-full text-xs font-medium bg-primary-100 text-primary-700 dark:bg-primary-800 dark:text-primary-200 border border-primary-200 dark:border-primary-700 hover:bg-primary-200 dark:hover:bg-primary-700 transition-colors"
+                                className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-700 dark:bg-primary-800 dark:text-primary-200 border border-primary-200 dark:border-primary-700 hover:bg-primary-200 dark:hover:bg-primary-700 transition-colors whitespace-nowrap"
                               >
                                 {tech}
                               </span>
