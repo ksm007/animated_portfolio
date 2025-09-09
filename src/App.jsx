@@ -33,7 +33,7 @@ const ScrollProgress = () => {
       const winHeightPx =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
-      const scrolled = (scrollPx / winHeightPx) * 100;
+      const scrolled = Math.min((scrollPx / winHeightPx) * 100, 100);
       setScrollProgress(scrolled);
     };
 
@@ -145,30 +145,45 @@ const ScrollToNext = () => {
 const AccessibilityHelper = () => {
   const [isHighContrast, setIsHighContrast] = useState(false);
   const [fontSize, setFontSize] = useState(100);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Apply high contrast
-    if (isHighContrast) {
-      document.documentElement.classList.add("high-contrast");
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    // Apply high contrast only on desktop
+    if (!isMobile) {
+      if (isHighContrast) {
+        document.documentElement.classList.add("high-contrast");
+      } else {
+        document.documentElement.classList.remove("high-contrast");
+      }
+      // Apply font size on desktop
+      document.documentElement.style.fontSize = `${fontSize}%`;
     } else {
+      // Reset everything on mobile
       document.documentElement.classList.remove("high-contrast");
+      document.documentElement.style.fontSize = "100%";
     }
+  }, [isHighContrast, fontSize, isMobile]);
 
-    // Apply font size
-    document.documentElement.style.fontSize = `${fontSize}%`;
-  }, [isHighContrast, fontSize]);
+  // Hide completely on mobile
+  if (isMobile) {
+    return null;
+  }
 
+  // Desktop version with full controls
   return (
-    <div className="fixed left-4 top-1/2 transform -translate-y-1/2 z-40 bg-background/80 backdrop-blur-sm border border-border rounded-lg p-2 shadow-lg">
+    <div className="fixed left-4 top-1/2 transform -translate-y-1/2 z-40 bg-background/90 backdrop-blur-sm border border-border rounded-lg p-3 shadow-lg">
       <div className="flex flex-col gap-2">
-        {/* <button
-          onClick={() => setIsHighContrast(!isHighContrast)}
-          className="p-2 rounded-md hover:bg-primary/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
-          aria-label="Toggle high contrast"
-          title="Toggle high contrast"
-        >
-          {isHighContrast ? <FiEyeOff size={16} /> : <FiEye size={16} />}
-        </button> */}
+
 
         <div className="flex flex-col gap-1">
           <button

@@ -14,7 +14,8 @@ const LoadingScreen = ({ onComplete }) => {
           setTimeout(() => onComplete(), 500);
           return 100;
         }
-        return prev + Math.random() * 15;
+        const nextProgress = prev + Math.random() * 15;
+        return Math.min(nextProgress, 100);
       });
     }, 100);
 
