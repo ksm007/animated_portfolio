@@ -10,7 +10,7 @@ import {
 import { motion } from "framer-motion";
 import Resume from "../assets/Resume.pdf";
 
-const Hero = () => {
+const Hero = ({ onViewResume }) => {
   return (
     <div
       className="mt-16 sm:mt-20 md:mt-24 mb-16 md:mb-20 max-w-[1200px] mx-auto relative px-4"
@@ -76,9 +76,9 @@ const Hero = () => {
               }}
               className="z-10 cursor-pointer font-bold  200 md:w-auto p-4 border
                                      border-primary rounded-xl"
-              onClick={() => (window.location.href = Resume)}
+              onClick={onViewResume || (() => (window.location.href = Resume))}
             >
-              Download CV
+              View Resume
             </motion.button>
 
             <div className="flex gap-6 flex-row text-4xl md:text-6xl   z-20">

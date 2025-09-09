@@ -3,9 +3,10 @@ import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import KeyboardShortcuts from "./components/KeyboardShortcuts";
 import LoadingScreen from "./components/LoadingScreen";
+import ResumeDialog, { useResumeDialog } from "./components/ResumeDialog";
 import { motion, AnimatePresence } from "framer-motion";
-import { HiArrowUp, HiChevronDown } from "react-icons/hi";
-import { FiEye, FiEyeOff } from "react-icons/fi";
+import { HiArrowUp, HiChevronDown, HiDocumentText } from "react-icons/hi";
+import Resume from "./assets/Resume.pdf";
 
 // Lazy load components that are not immediately visible
 const Skills = lazy(() => import("./components/Skills"));
@@ -183,8 +184,6 @@ const AccessibilityHelper = () => {
   return (
     <div className="fixed left-4 top-1/2 transform -translate-y-1/2 z-40 bg-background/90 backdrop-blur-sm border border-border rounded-lg p-3 shadow-lg">
       <div className="flex flex-col gap-2">
-
-
         <div className="flex flex-col gap-1">
           <button
             onClick={() => setFontSize(Math.min(fontSize + 10, 150))}
@@ -218,6 +217,7 @@ const AccessibilityHelper = () => {
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const { isOpen: isResumeOpen, openResume, closeResume } = useResumeDialog();
 
   useEffect(() => {
     // Smooth scrolling for the entire page
@@ -276,7 +276,7 @@ function App() {
       <Navbar />
       <main className="overflow-x-hidden">
         {/* Scrollytelling Hero - Interactive Story */}
-        <Hero />
+        <Hero onViewResume={openResume} />
         <ScrollToNext />
 
         {/* Traditional Sections - Lazy loaded */}
@@ -313,6 +313,25 @@ function App() {
       <ScrollToTop />
       <AccessibilityHelper />
       <KeyboardShortcuts />
+
+      {/* Resume Button */}
+      <motion.button
+        onClick={openResume}
+        className="fixed bottom-8 left-8 z-40 p-3 bg-primary text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 group"
+        whileHover={{ y: -2 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label="View Resume"
+        title="View Resume"
+      >
+        <HiDocumentText size={20} className="group-hover:animate-pulse" />
+      </motion.button>
+
+      {/* Resume Dialog */}
+      <ResumeDialog
+        isOpen={isResumeOpen}
+        onClose={closeResume}
+        resumeUrl={Resume}
+      />
     </div>
   );
 }
