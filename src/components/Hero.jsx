@@ -26,11 +26,11 @@ const Hero = ({ onViewResume }) => {
         >
           <TypeAnimation
             sequence={[
-              "Fullstack Dev",
+              "Fullstack Developer",
               1000,
-              "Web-designer",
+              "Backend Developer",
               1000,
-              "ML Engineer",
+              "Data Engineer",
               1000,
             ]}
             speed={50}
@@ -58,8 +58,8 @@ const Hero = ({ onViewResume }) => {
           >
             I’m a full‑stack engineer with an M.S. in Computer Science from ASU
             (’26) and over two years at Boeing building scalable Spring Boot
-            APIs, cloud‑native Angular/React applications,, and end‑to‑end data
-            visualization pipelines.
+            APIs, cloud‑native Angular/React applications, cloud infrastructure
+            and end‑to‑end data visualization pipelines.
           </motion.p>
 
           <motion.div
