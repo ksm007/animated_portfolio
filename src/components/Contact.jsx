@@ -27,7 +27,7 @@ const Contact = () => {
         "service_g394pyh",
         "template_8x0xdll",
         form.current,
-        "zUjD-z4-6fXi_ZvpN"
+        "zUjD-z4-6fXi_ZvpN",
       )
       .then(
         () => {
@@ -43,7 +43,7 @@ const Contact = () => {
             message: "Failed to send message. Please try again.",
           });
           console.error(error.text);
-        }
+        },
       )
       .finally(() => {
         setIsSubmitting(false);
@@ -65,10 +65,10 @@ const Contact = () => {
               About <span className="text-primary">Me</span>
             </h3>
             <p className="text-lg leading-relaxed mb-8 text-main">
-              Graduate student in Computer science with 2 years of valuable
-              experience in Information Technology. Proven ability to work on
-              complex tasks, combined with a strong academic foundation,
-              demonstrates dedication to personal and professional development.
+              Master of Science in Computer Science candidate at Arizona State
+              University with two years of full stack experience. Skilled in
+              Spring Boot microservices, React front ends, AWS deployments, and
+              building ETL pipelines for data engineering workflows.
             </p>
 
             <div className="grid grid-cols-3 gap-4">

@@ -12,6 +12,13 @@ const achievements = [
       "Won ASU's largest student-led spring hackathon for developing an application that empowers job seekers to customize their resumes and generates compatibility scores for further analysis.",
   },
   {
+    title: "Winner, TIAA Fund the Future Spark Challenge 2025",
+    organization: "TIAA",
+    year: "2025",
+    description:
+      "Won the TIAA Fund the Future Spark Challenge 2025 for creating an optimized retirement contribution matching app that helps users maximize their retirement savings.",
+  },
+  {
     title: "Intel Corporation Hackathon - 3rd Place",
     organization: "Arizona State University",
     year: "2023",
@@ -19,11 +26,11 @@ const achievements = [
       "Secured 3rd place at the Intel Corporation Hackathon through enhancing the Intel Retail AI Suite with innovative data visualization capabilities that improved analytical insights.",
   },
   {
-    title: "Research Publication at INDICON",
+    title: "Conference Presentation at IEEE INDICON",
     organization: "IEEE Conference",
     year: "2023",
     description:
-      "Presented research on the 'VLSI Floorplan Optimization Tool' at the prestigious INDICON conference, showcasing cutting-edge methodologies in VLSI design and driving progress in the field.",
+      "Presented research on the 'VLSI Floorplan Optimization Tool' at the prestigious IEEE INDICON conference, showcasing cutting-edge methodologies in VLSI design and driving progress in the field.",
   },
   {
     title: "KCET 2018 - 59th Rank",

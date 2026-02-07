@@ -58,8 +58,8 @@ const Hero = ({ onViewResume }) => {
           >
             I’m a full‑stack engineer with an M.S. in Computer Science from ASU
             (’26) and over two years at Boeing building scalable Spring Boot
-            APIs, cloud‑native Angular/React applications, cloud infrastructure
-            and end‑to‑end data visualization pipelines.
+            microservices, React front ends, AWS deployments, and end‑to‑end ETL
+            pipelines for data engineering workflows.
           </motion.p>
 
           <motion.div
@@ -93,7 +93,7 @@ const Hero = ({ onViewResume }) => {
 
               <motion.a
                 whileHover={{ scale: 1.2 }}
-                href="https://linkedin.com/in/kartik-marathe-360013168"
+                href="https://linkedin.com/in/kartik-marathe"
                 target="_blank"
                 className="text-primary"
               >
