@@ -1,11 +1,9 @@
-import React from "react";
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
 import { FaGraduationCap } from "react-icons/fa";
 import { HiOutlineCalendar, HiOutlineChevronRight } from "react-icons/hi";
 import { IoLocationSharp } from "react-icons/io5";
 import { BsBuilding } from "react-icons/bs";
-import { HiAcademicCap } from "react-icons/hi2";
 
 const education = [
   {
@@ -16,8 +14,8 @@ const education = [
     grade: "GPA: 4.0/4.0",
     type: "masters",
     coursework: [
-      "Data Mining",
       "Cloud Computing",
+      "Data Processing at Scale",
       "Mobile Computing",
       "Data Visualization",
     ],
@@ -84,13 +82,14 @@ const Education = () => {
       className="py-16 md:py-24 bg-gradient-to-b from-transparent to-primary-50/20 dark:to-primary-950/10"
       id="education"
     >
-      <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              My <span className="text-primary">Education</span>
+          <div className="section-shell px-6 py-8 sm:px-8 sm:py-10 mb-12 text-center">
+            <p className="section-kicker justify-center mb-4">Foundation</p>
+            <h2 className="section-title mb-4">
+              My <em>Education</em>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="section-copy text-base sm:text-lg mx-auto">
               Academic foundation powering my engineering journey
             </p>
           </div>

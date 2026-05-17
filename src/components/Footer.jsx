@@ -1,91 +1,61 @@
-import React from "react";
-import {
-  FaGithubSquare,
-  FaInstagram,
-  FaWhatsapp,
-  FaLinkedin,
-  FaHeart,
-} from "react-icons/fa";
+import { FaGithubSquare, FaLinkedin } from "react-icons/fa";
+import { SiDevpost } from "react-icons/si";
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
+const socialLinks = [
+  { name: "GitHub",   icon: FaGithubSquare, href: "https://github.com/ksm007" },
+  { name: "LinkedIn", icon: FaLinkedin,     href: "https://linkedin.com/in/kartik-marathe" },
+  { name: "Devpost",  icon: SiDevpost,      href: "https://devpost.com/ksm007" },
+];
 
-  const socialLinks = [
-    {
-      name: "GitHub",
-      icon: FaGithubSquare,
-      href: "https://github.com/ksm007",
-    },
-    {
-      name: "LinkedIn",
-      icon: FaLinkedin,
-      href: "https://linkedin.com/in/kartik-marathe",
-    },
-    {
-      name: "Instagram",
-      icon: FaInstagram,
-      href: "https://www.instagram.com/kartikmarathe007",
-    },
-    {
-      name: "WhatsApp",
-      icon: FaWhatsapp,
-      href: "https://api.whatsapp.com/send/?phone=918088165214&text&type=phone_number&app_absent=0",
-    },
-  ];
-
-  return (
-    <footer className="border-t border-border mt-20">
-      <div className="max-w-[1200px] mx-auto px-6 py-8">
-        {/* Main Content */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          {/* Social Links */}
-          <div className="flex gap-6">
-            {socialLinks.map((social) => (
-              <a
-                key={social.name}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-2xl text-muted-foreground hover:text-primary transition-colors duration-200"
-                title={social.name}
-              >
-                <social.icon />
-              </a>
-            ))}
-          </div>
-
-          {/* Contact */}
-          <div className="text-center md:text-right">
-            <p className="text-sm text-muted-foreground mb-1">
-              <a
-                href="mailto:kartiksm007@gmail.com"
-                className="hover:text-primary transition-colors"
-              >
-                kartiksm007@gmail.com
-              </a>
-            </p>
-            <p className="text-sm text-muted-foreground">Arizona, USA</p>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="border-t border-border mt-6 pt-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            {/* Copyright */}
-            <div className="flex items-center gap-2">
-              <span>© {currentYear} Kartik Marathe</span>
-            </div>
-
-            {/* Status */}
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span>Available for opportunities</span>
-            </div>
-          </div>
-        </div>
+const Footer = () => (
+  <footer
+    className="border-t py-8 px-6 sm:px-10 lg:px-16"
+    style={{ borderColor: "var(--card-border)" }}
+  >
+    <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5">
+      {/* Social */}
+      <div className="flex gap-5">
+        {socialLinks.map(({ name, icon: Icon, href }) => (
+          <a
+            key={name}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={name}
+            className="text-2xl transition-all duration-200 hover:-translate-y-1"
+            style={{ color: "var(--text-color)", opacity: 0.5 }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "var(--primary-color)";
+              e.currentTarget.style.opacity = "1";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "var(--text-color)";
+              e.currentTarget.style.opacity = "0.5";
+            }}
+          >
+            <Icon />
+          </a>
+        ))}
       </div>
-    </footer>
-  );
-};
+
+      {/* Right */}
+      <div className="text-center md:text-right space-y-1">
+        <p className="text-sm" style={{ color: "var(--text-color)", opacity: 0.5 }}>
+          <a
+            href="mailto:kartiksmarathe@gmail.com"
+            className="transition-colors duration-200"
+            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary-color)")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.5")}
+          >
+            kartiksmarathe@gmail.com
+          </a>
+        </p>
+        <p className="text-sm" style={{ color: "var(--text-color)", opacity: 0.4 }}>
+          © {new Date().getFullYear()} Kartik Marathe · Tempe, Arizona
+        </p>
+      </div>
+    </div>
+  </footer>
+);
 
 export default Footer;

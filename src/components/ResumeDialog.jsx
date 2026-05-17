@@ -88,7 +88,7 @@ const ResumeDialog = ({ isOpen, onClose, resumeUrl = "/resume.pdf" }) => {
                       Resume Preview Unavailable
                     </h3>
                     <p className="text-muted-foreground mb-4">
-                      The resume preview couldn't load. You can download it
+                      The resume preview couldn&apos;t load. You can download it
                       directly.
                     </p>
                     <button

@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
 import { FaTrophy } from "react-icons/fa";
@@ -9,7 +8,14 @@ const achievements = [
     organization: "Arizona State University",
     year: "2025",
     description:
-      "Won ASU's largest student-led spring hackathon for developing an application that empowers job seekers to customize their resumes and generates compatibility scores for further analysis.",
+      "Built an AI-powered resume customization platform with ATS-style scoring and won ASU's largest student-led spring hackathon.",
+  },
+  {
+    title: "Winner of AEE Hackathon 2026",
+    organization: "Arizona State University",
+    year: "2026",
+    description:
+      "Won with an EV energy orchestration project focused on simulation-driven charging workflows, charger visibility, and fleet intelligence.",
   },
   {
     title: "Winner, TIAA Fund the Future Spark Challenge 2025",
@@ -26,11 +32,11 @@ const achievements = [
       "Secured 3rd place at the Intel Corporation Hackathon through enhancing the Intel Retail AI Suite with innovative data visualization capabilities that improved analytical insights.",
   },
   {
-    title: "Conference Presentation at IEEE INDICON",
-    organization: "IEEE Conference",
-    year: "2023",
+    title: "IEEE INDICON 2022 Publication",
+    organization: "IEEE",
+    year: "2022",
     description:
-      "Presented research on the 'VLSI Floorplan Optimization Tool' at the prestigious IEEE INDICON conference, showcasing cutting-edge methodologies in VLSI design and driving progress in the field.",
+      "Published research on VLSI floorplan optimization using simulated annealing, based on work presented through IEEE INDICON.",
   },
   {
     title: "KCET 2018 - 59th Rank",
@@ -49,9 +55,15 @@ const Achievements = () => {
     >
       <div className="max-w-[1200px] mx-auto px-6">
         <Reveal>
-          <h2 className="text-4xl font-bold text-center mb-16">
-            My <span className="text-primary">Achievements</span>
-          </h2>
+          <div className="section-shell px-6 py-8 sm:px-8 sm:py-10 mb-12 text-center">
+            <p className="section-kicker justify-center mb-4">Recognition</p>
+            <h2 className="section-title mb-4">
+              My <em>Achievements</em>
+            </h2>
+            <p className="section-copy text-base sm:text-lg mx-auto">
+              Competitive wins, publications, and milestones that back the work.
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {achievements.map((achievement, index) => (

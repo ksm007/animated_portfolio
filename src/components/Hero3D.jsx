@@ -1,5 +1,3 @@
-// components/Hero3D.jsx
-import React from "react";
 import { motion } from "framer-motion";
 import { FaReact, FaNodeJs } from "react-icons/fa";
 import { FaAws } from "react-icons/fa6";

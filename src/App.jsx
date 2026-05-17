@@ -1,217 +1,67 @@
-import { Suspense, lazy, useState, useEffect } from "react";
-import Hero from "./components/Hero";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { HiArrowUp } from "react-icons/hi";
 import Navbar from "./components/Navbar";
-import KeyboardShortcuts from "./components/KeyboardShortcuts";
+import Hero from "./components/Hero";
+import Experience from "./components/Experience";
+import Portfolio from "./components/Portfolio";
+import Skills from "./components/Skills";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 import LoadingScreen from "./components/LoadingScreen";
 import ResumeDialog, { useResumeDialog } from "./components/ResumeDialog";
-import { motion, AnimatePresence } from "framer-motion";
-import { HiArrowUp, HiChevronDown, HiDocumentText } from "react-icons/hi";
 import Resume from "./assets/Resume.pdf";
 
-// Lazy load components that are not immediately visible
-const Skills = lazy(() => import("./components/Skills"));
-const Portfolio = lazy(() => import("./components/Portfolio"));
-const Experience = lazy(() => import("./components/Experience"));
-const Education = lazy(() => import("./components/Education"));
-const Achievements = lazy(() => import("./components/Achievements"));
-const Contact = lazy(() => import("./components/Contact"));
-const Footer = lazy(() => import("./components/Footer"));
-
-// Loading component for better UX
-const LoadingSpinner = () => (
-  <div className="flex items-center justify-center py-16">
-    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-  </div>
-);
-
-// Scroll Progress Indicator
+/* Thin teal scroll-progress bar at the very top */
 const ScrollProgress = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
-
+  const [pct, setPct] = useState(0);
   useEffect(() => {
-    const updateScrollProgress = () => {
-      const scrollPx = document.documentElement.scrollTop;
-      const winHeightPx =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-      const scrolled = Math.min((scrollPx / winHeightPx) * 100, 100);
-      setScrollProgress(scrolled);
+    const update = () => {
+      const el = document.documentElement;
+      setPct(Math.min((el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100, 100));
     };
-
-    window.addEventListener("scroll", updateScrollProgress);
-    return () => window.removeEventListener("scroll", updateScrollProgress);
+    window.addEventListener("scroll", update);
+    return () => window.removeEventListener("scroll", update);
   }, []);
-
   return (
-    <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 dark:bg-gray-800 z-50">
+    <div className="fixed top-0 left-0 w-full h-0.5 z-[60]" style={{ backgroundColor: "var(--card-border)" }}>
       <div
-        className="h-full bg-gradient-to-r from-primary to-primary-600 transition-all duration-150 ease-out"
-        style={{ width: `${scrollProgress}%` }}
+        className="h-full transition-all duration-100 ease-out"
+        style={{ width: `${pct}%`, backgroundColor: "var(--primary-color)" }}
       />
     </div>
   );
 };
 
-// Scroll to Top Button
+/* Scroll-to-top button */
 const ScrollToTop = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
+    const toggle = () => setVisible(window.scrollY > 400);
+    window.addEventListener("scroll", toggle);
+    return () => window.removeEventListener("scroll", toggle);
   }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <AnimatePresence>
-      {isVisible && (
+      {visible && (
         <motion.button
-          initial={{ opacity: 0, scale: 0.8, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.8, y: 20 }}
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 p-3 bg-primary text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 group"
-          whileHover={{ y: -2 }}
-          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          whileHover={{ y: -3 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-8 right-8 z-50 p-3 rounded-full shadow-lg transition-all duration-200"
+          style={{
+            backgroundColor: "color-mix(in srgb, var(--primary-color) 15%, var(--card-bg))",
+            border: "1px solid color-mix(in srgb, var(--primary-color) 30%, transparent)",
+            color: "var(--primary-color)",
+          }}
           aria-label="Scroll to top"
         >
-          <HiArrowUp size={20} className="group-hover:animate-bounce" />
+          <HiArrowUp size={20} />
         </motion.button>
       )}
     </AnimatePresence>
-  );
-};
-
-// Scroll to Next Section Button
-const ScrollToNext = () => {
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrolled = window.pageYOffset;
-      const heroHeight = window.innerHeight;
-      setIsVisible(scrolled < heroHeight * 0.8);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToNext = () => {
-    const experienceSection = document.getElementById("experience");
-    if (experienceSection) {
-      experienceSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.button
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          onClick={scrollToNext}
-          className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40 p-2 text-primary hover:text-primary-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-full"
-          whileHover={{ y: 2 }}
-          aria-label="Scroll to next section"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <HiChevronDown size={24} />
-          </motion.div>
-        </motion.button>
-      )}
-    </AnimatePresence>
-  );
-};
-
-// Accessibility Helper
-const AccessibilityHelper = () => {
-  const [isHighContrast, setIsHighContrast] = useState(false);
-  const [fontSize, setFontSize] = useState(100);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  useEffect(() => {
-    // Apply high contrast only on desktop
-    if (!isMobile) {
-      if (isHighContrast) {
-        document.documentElement.classList.add("high-contrast");
-      } else {
-        document.documentElement.classList.remove("high-contrast");
-      }
-      // Apply font size on desktop
-      document.documentElement.style.fontSize = `${fontSize}%`;
-    } else {
-      // Reset everything on mobile
-      document.documentElement.classList.remove("high-contrast");
-      document.documentElement.style.fontSize = "100%";
-    }
-  }, [isHighContrast, fontSize, isMobile]);
-
-  // Hide completely on mobile
-  if (isMobile) {
-    return null;
-  }
-
-  // Desktop version with full controls
-  return (
-    <div className="fixed left-4 top-1/2 transform -translate-y-1/2 z-40 bg-background/90 backdrop-blur-sm border border-border rounded-lg p-3 shadow-lg">
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-col gap-1">
-          <button
-            onClick={() => setFontSize(Math.min(fontSize + 10, 150))}
-            className="px-2 py-1 text-xs rounded hover:bg-primary/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
-            aria-label="Increase font size"
-            title="Increase font size"
-          >
-            A+
-          </button>
-          <button
-            onClick={() => setFontSize(Math.max(fontSize - 10, 80))}
-            className="px-2 py-1 text-xs rounded hover:bg-primary/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
-            aria-label="Decrease font size"
-            title="Decrease font size"
-          >
-            A-
-          </button>
-          <button
-            onClick={() => setFontSize(100)}
-            className="px-2 py-1 text-xs rounded hover:bg-primary/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
-            aria-label="Reset font size"
-            title="Reset font size"
-          >
-            A
-          </button>
-        </div>
-      </div>
-    </div>
   );
 };
 
@@ -219,119 +69,34 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const { isOpen: isResumeOpen, openResume, closeResume } = useResumeDialog();
 
-  useEffect(() => {
-    // Smooth scrolling for the entire page
-    document.documentElement.style.scrollBehavior = "smooth";
-
-    // Keyboard navigation
-    const handleKeyDown = (e) => {
-      if (e.ctrlKey || e.metaKey) {
-        switch (e.key) {
-          case "Home":
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            break;
-          case "End":
-            e.preventDefault();
-            window.scrollTo({
-              top: document.body.scrollHeight,
-              behavior: "smooth",
-            });
-            break;
-        }
-      }
-
-      // Arrow key navigation
-      if (e.altKey) {
-        switch (e.key) {
-          case "ArrowUp":
-            e.preventDefault();
-            window.scrollBy({
-              top: -window.innerHeight * 0.8,
-              behavior: "smooth",
-            });
-            break;
-          case "ArrowDown":
-            e.preventDefault();
-            window.scrollBy({
-              top: window.innerHeight * 0.8,
-              behavior: "smooth",
-            });
-            break;
-        }
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
-  if (isLoading) {
-    return <LoadingScreen onComplete={() => setIsLoading(false)} />;
-  }
+  if (isLoading) return <LoadingScreen onComplete={() => setIsLoading(false)} />;
 
   return (
-    <div className="bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen" style={{ backgroundColor: "var(--bg-color)" }}>
       <ScrollProgress />
       <Navbar />
-      <main className="overflow-x-hidden">
-        {/* Scrollytelling Hero - Interactive Story */}
+
+      <main>
+        {/* Hero / About */}
         <Hero onViewResume={openResume} />
-        <ScrollToNext />
 
-        {/* Traditional Sections - Lazy loaded */}
-        <Suspense fallback={<LoadingSpinner />}>
-          <Experience />
-        </Suspense>
+        {/* Experience */}
+        <Experience />
 
-        <Suspense fallback={<LoadingSpinner />}>
-          <Education />
-        </Suspense>
+        {/* Projects */}
+        <Portfolio />
 
-        <Suspense fallback={<LoadingSpinner />}>
-          <Skills />
-        </Suspense>
+        {/* Skills */}
+        <Skills />
 
-        <Suspense fallback={<LoadingSpinner />}>
-          <Achievements />
-        </Suspense>
-
-        <Suspense fallback={<LoadingSpinner />}>
-          <Portfolio />
-        </Suspense>
-        <div id="portfolio-traditional" className="hidden"></div>
-
-        <Suspense fallback={<LoadingSpinner />}>
-          <Contact />
-        </Suspense>
+        {/* Contact */}
+        <Contact />
       </main>
 
-      <Suspense fallback={<LoadingSpinner />}>
-        <Footer />
-      </Suspense>
-
+      <Footer />
       <ScrollToTop />
-      <AccessibilityHelper />
-      <KeyboardShortcuts />
 
-      {/* Resume Button */}
-      <motion.button
-        onClick={openResume}
-        className="fixed bottom-8 left-8 z-40 p-3 bg-primary text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 group"
-        whileHover={{ y: -2 }}
-        whileTap={{ scale: 0.95 }}
-        aria-label="View Resume"
-        title="View Resume"
-      >
-        <HiDocumentText size={20} className="group-hover:animate-pulse" />
-      </motion.button>
-
-      {/* Resume Dialog */}
-      <ResumeDialog
-        isOpen={isResumeOpen}
-        onClose={closeResume}
-        resumeUrl={Resume}
-      />
+      <ResumeDialog isOpen={isResumeOpen} onClose={closeResume} resumeUrl={Resume} />
     </div>
   );
 }

@@ -25,6 +25,17 @@
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
+    --bg-color: #f8fafc;
+    --text-color: #1e293b;
+    --primary-color: hsl(221 83% 53%);
+    --secondary-color: hsl(224 76% 48%);
+    --card-bg: #ffffff;
+    --card-border: hsl(213 97% 87%);
+    --input-bg: #ffffff;
+    --input-text: #1e293b;
+    --hover-color: hsl(217 91% 60%);
+    --font-body: "Sora", sans-serif;
+    --font-display: "Instrument Serif", serif;
   }
 
   [data-theme="light"] {
@@ -58,21 +69,22 @@
   body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: "Space Grotesk", sans-serif;
+    font-family: var(--font-body);
+    min-height: 100vh;
+    line-height: 1.5;
+    overflow-x: clip;
   }
 
-  h2 {
-    @apply text-xl md:text-4xl font-bold;
+  html,
+  body,
+  #root {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  html.dark body {
+    background-color: var(--bg-color);
     color: var(--text-color);
-  }
-
-  p {
-    @apply text-xl tracking-tight leading-relaxed;
-    color: var(--text-color);
-  }
-
-  span {
-    color: var(--primary-color);
   }
 
   .bg-primary-color {
@@ -92,16 +104,135 @@
   }
 
   .card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 1rem;
+    background: color-mix(in srgb, var(--card-bg) 88%, transparent);
+    border: 1px solid color-mix(in srgb, var(--card-border) 72%, transparent);
+    border-radius: 1.25rem;
     padding: 1.5rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow:
+      0 18px 40px rgba(15, 23, 42, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.42);
+    backdrop-filter: blur(14px);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
   }
 
   .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-6px);
+    box-shadow:
+      0 22px 48px rgba(15, 23, 42, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.48);
+    border-color: color-mix(in srgb, var(--primary-color) 28%, var(--card-border));
+  }
+
+  .section-shell {
+    position: relative;
+    border: 1px solid color-mix(in srgb, var(--card-border) 72%, transparent);
+    border-radius: 2rem;
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--card-bg) 92%, transparent), color-mix(in srgb, var(--card-bg) 84%, transparent)),
+      linear-gradient(135deg, color-mix(in srgb, var(--primary-color) 6%, transparent), transparent 42%);
+    box-shadow:
+      0 22px 60px rgba(15, 23, 42, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(14px);
+  }
+
+  .section-shell::before {
+    content: "";
+    position: absolute;
+    inset: 1rem;
+    border: 1px solid color-mix(in srgb, var(--primary-color) 10%, transparent);
+    border-radius: 1.35rem;
+    pointer-events: none;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--primary-color) 82%, var(--text-color));
+  }
+
+  .section-kicker::before {
+    content: "";
+    width: 2.5rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--primary-color), transparent);
+  }
+
+  .section-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+
+  .section-title em {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--primary-color);
+  }
+
+  .section-copy {
+    max-width: 42rem;
+    color: color-mix(in srgb, var(--text-color) 72%, transparent);
+    line-height: 1.8;
+  }
+
+  .hero-panel {
+    position: relative;
+    border: 1px solid color-mix(in srgb, var(--card-border) 78%, transparent);
+    border-radius: 1.75rem;
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--card-bg) 94%, transparent), color-mix(in srgb, var(--card-bg) 82%, transparent)),
+      radial-gradient(circle at top right, color-mix(in srgb, var(--primary-color) 12%, transparent), transparent 40%);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1);
+    backdrop-filter: blur(16px);
+  }
+
+  .eyebrow-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--primary-color) 22%, transparent);
+    background: color-mix(in srgb, var(--primary-color) 8%, transparent);
+    padding: 0.55rem 0.95rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--primary-color) 84%, var(--text-color));
+  }
+
+  .editorial-stat {
+    border-radius: 1.35rem;
+    border: 1px solid color-mix(in srgb, var(--card-border) 70%, transparent);
+    background: color-mix(in srgb, var(--card-bg) 90%, transparent);
+    padding: 1rem 1.1rem;
+  }
+
+  .editorial-stat strong {
+    display: block;
+    font-size: 1.45rem;
+    line-height: 1;
+    margin-bottom: 0.45rem;
+    color: var(--text-color);
+  }
+
+  .editorial-stat span {
+    color: color-mix(in srgb, var(--text-color) 62%, transparent);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
   .shiny-effect {

@@ -1,5 +1,3 @@
-import React from "react";
-
 const ProjectSkeleton = () => {
   return (
     <div className="animate-pulse">

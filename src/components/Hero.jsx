@@ -1,138 +1,230 @@
-import React from "react";
-import { TypeAnimation } from "react-type-animation";
-import ShinyEffect from "./ShinyEffect";
-import Hero3D from "./Hero3D";
-import {
-  AiOutlineGithub,
-  AiOutlineInstagram,
-  AiOutlineLinkedin,
-} from "react-icons/ai";
 import { motion } from "framer-motion";
+import profileImage from "../assets/profpic.png";
+import { AiOutlineGithub, AiOutlineLinkedin } from "react-icons/ai";
+import { SiDevpost } from "react-icons/si";
 import Resume from "../assets/Resume.pdf";
 
 const Hero = ({ onViewResume }) => {
   return (
-    <div
-      className="mt-16 sm:mt-20 md:mt-24 mb-16 md:mb-20 max-w-[1200px] mx-auto relative px-4"
-      id="hero"
+    <section
+      id="about"
+      className="min-h-screen flex items-center px-6 sm:px-10 lg:px-16 pt-20 pb-16"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 place-items-center gap-8">
-        <motion.div
-          className="order-1 md:order-1"
-          initial={{ opacity: 0, y: -50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-        >
-          <TypeAnimation
-            sequence={[
-              "Fullstack Developer",
-              1000,
-              "Backend Developer",
-              1000,
-              "Data Engineer",
-              1000,
-            ]}
-            speed={50}
-            repeat={Infinity}
-            className="font-bold  400 text-xl md:text-5xl italic- mb-4"
-          />
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className=" 200 md:text-7xl text-5xl tracking-tight mb-4"
-          >
-            HEY, I AM <br />
-            <span className="text-primary">KARTIK MARATHE</span>
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 1 }}
-            className=" 300 max-w-[300px] md:max-w-[500px] md:text-2xl text-lg mb-6"
-          >
-            I’m a full‑stack engineer with an M.S. in Computer Science from ASU
-            (’26) and over two years at Boeing building scalable Spring Boot
-            microservices, React front ends, AWS deployments, and end‑to‑end ETL
-            pipelines for data engineering workflows.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 1.5 }}
-            className="flex flex-row items-center gap-6 my-4 md:mb-0"
-          >
-            <motion.button
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
-              }}
-              className="z-10 cursor-pointer font-bold  200 md:w-auto p-4 border
-                                     border-primary rounded-xl"
-              onClick={onViewResume || (() => (window.location.href = Resume))}
+      <div className="max-w-screen-xl mx-auto w-full">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
+          {/* ── Left: text ─────────────────────────────── */}
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="font-mono text-sm lg:text-base mb-5"
+              style={{ color: "var(--primary-color)" }}
             >
-              View Resume
-            </motion.button>
+              Hi, my name is
+            </motion.p>
 
-            <div className="flex gap-6 flex-row text-4xl md:text-6xl   z-20">
-              <motion.a
-                whileHover={{ scale: 1.2 }}
-                href="https://github.com/ksm007"
-                target="_blank"
-                className="text-primary"
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05] mb-4"
+              style={{ color: "var(--text-color)" }}
+            >
+              Kartik Marathe.
+            </motion.h1>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1] mb-7"
+              style={{ color: "var(--text-color)", opacity: 0.55 }}
+            >
+              I build things for the web.
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="text-base lg:text-lg leading-relaxed max-w-xl mb-4"
+              style={{ color: "var(--text-color)", opacity: 0.75 }}
+            >
+              I&apos;m a computer science graduate student at{" "}
+              <span style={{ color: "var(--primary-color)" }}>
+                Arizona State University
+              </span>{" "}
+              who enjoys building polished web apps, backend services, and
+              AI-assisted tools. Currently building at{" "}
+              <span style={{ color: "var(--primary-color)" }}>LERI</span> and
+              exploring the intersection of systems, product, and applied AI.
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.35 }}
+              className="text-base leading-relaxed max-w-xl mb-10"
+              style={{ color: "var(--text-color)", opacity: 0.65 }}
+            >
+              Open to internships and roles in backend, full-stack, and AI
+              engineering. Reach me at{" "}
+              <a
+                href="mailto:kartiksmarathe@gmail.com"
+                className="transition-colors duration-200 underline underline-offset-2"
+                style={{ color: "var(--primary-color)" }}
               >
-                <AiOutlineGithub />
-              </motion.a>
+                kartiksmarathe@gmail.com
+              </a>
+              .
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.45 }}
+              className="flex flex-wrap items-center gap-4 mb-10"
+            >
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={onViewResume || (() => window.open(Resume, "_blank"))}
+                className="font-mono text-sm font-semibold border rounded px-6 py-3 transition-all duration-200"
+                style={{ color: "var(--primary-color)", borderColor: "var(--primary-color)" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "color-mix(in srgb, var(--primary-color) 10%, transparent)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                }}
+              >
+                View Résumé
+              </motion.button>
 
               <motion.a
-                whileHover={{ scale: 1.2 }}
-                href="https://linkedin.com/in/kartik-marathe"
-                target="_blank"
-                className="text-primary"
+                whileHover={{ y: -2 }}
+                href="#projects"
+                className="font-mono text-sm font-semibold px-6 py-3 rounded transition-all duration-200"
+                style={{
+                  backgroundColor: "var(--primary-color)",
+                  color: "var(--bg-color)",
+                }}
               >
-                <AiOutlineLinkedin />
+                See Projects
               </motion.a>
+            </motion.div>
 
-              <motion.a
-                whileHover={{ scale: 1.2 }}
-                href="https://www.instagram.com/kartikmarathe007"
-                target="_blank"
-                className="text-primary"
+            {/* Social links */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.55 }}
+              className="flex items-center gap-5"
+            >
+              {[
+                { href: "https://github.com/ksm007", Icon: AiOutlineGithub, label: "GitHub" },
+                { href: "https://linkedin.com/in/kartik-marathe", Icon: AiOutlineLinkedin, label: "LinkedIn" },
+                { href: "https://devpost.com/ksm007", Icon: SiDevpost, label: "Devpost" },
+              ].map(({ href, Icon, label }) => (
+                <motion.a
+                  key={label}
+                  whileHover={{ y: -3 }}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="text-2xl lg:text-3xl transition-colors duration-200"
+                  style={{ color: "var(--text-color)", opacity: 0.6 }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = "var(--primary-color)";
+                    e.currentTarget.style.opacity = "1";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = "var(--text-color)";
+                    e.currentTarget.style.opacity = "0.6";
+                  }}
+                >
+                  <Icon />
+                </motion.a>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* ── Right: profile image ───────────────────── */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="flex justify-center lg:justify-end"
+          >
+            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+              {/* Decorative border offset */}
+              <div
+                className="absolute inset-0 rounded-full translate-x-3 translate-y-3 border-2"
+                style={{ borderColor: "var(--primary-color)" }}
+              />
+              {/* Image */}
+              <div
+                className="relative w-full h-full rounded-full overflow-hidden border-2"
+                style={{ borderColor: "var(--card-border)" }}
               >
-                <AiOutlineInstagram />
-              </motion.a>
+                {profileImage ? (
+                  <img
+                    src={profileImage}
+                    alt="Kartik Marathe"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  /* Placeholder: swap profileImage import path to update */
+                  <div
+                    className="w-full h-full flex items-center justify-center text-4xl font-bold"
+                    style={{
+                      backgroundColor: "var(--card-bg)",
+                      color: "var(--primary-color)",
+                    }}
+                  >
+                    KM
+                  </div>
+                )}
+              </div>
             </div>
           </motion.div>
-        </motion.div>
+        </div>
 
+        {/* Stats row */}
         <motion.div
-          className="
-    order-2 md:order-2 
-    w-[280px] h-[280px] md:w-[400px] md:h-[400px] 
-    mt-8 md:mt-16 lg:mt-0
-    relative
-    flex items-center justify-center
-  "
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-16 pt-10 border-t"
+          style={{ borderColor: "var(--card-border)" }}
         >
-          <Hero3D />
+          {[
+            ["2+ yrs", "Industry experience"],
+            ["React · Node · Java", "Primary stack"],
+            ["3 Hackathon wins", "Competition record"],
+            ["M.S. CS", "Arizona State Univ."],
+          ].map(([value, label]) => (
+            <div key={label} className="space-y-1">
+              <p
+                className="text-lg lg:text-xl font-bold font-mono"
+                style={{ color: "var(--primary-color)" }}
+              >
+                {value}
+              </p>
+              <p
+                className="text-xs lg:text-sm uppercase tracking-widest"
+                style={{ color: "var(--text-color)", opacity: 0.55 }}
+              >
+                {label}
+              </p>
+            </div>
+          ))}
         </motion.div>
       </div>
-
-      <div className="absolute inset-0 hidden md:block">
-        <ShinyEffect left={0} top={0} size={1400} />
-      </div>
-    </div>
+    </section>
   );
 };
 
