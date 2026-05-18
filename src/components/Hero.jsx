@@ -41,7 +41,7 @@ const Hero = ({ onViewResume }) => {
               className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1] mb-7"
               style={{ color: "var(--text-color)", opacity: 0.55 }}
             >
-              I build things for the web.
+              I engineer systems that scale and products that ship.
             </motion.h2>
 
             <motion.p
@@ -55,10 +55,9 @@ const Hero = ({ onViewResume }) => {
               <span style={{ color: "var(--primary-color)" }}>
                 Arizona State University
               </span>{" "}
-              who enjoys building polished web apps, backend services, and
-              AI-assisted tools. Currently building at{" "}
-              <span style={{ color: "var(--primary-color)" }}>LERI</span> and
-              exploring the intersection of systems, product, and applied AI.
+              specializing in backend systems, full-stack engineering, and applied
+              AI. I care about clean architecture, production reliability, and
+              building software that solves real problems at scale.
             </motion.p>
 
             <motion.p
@@ -68,8 +67,8 @@ const Hero = ({ onViewResume }) => {
               className="text-base leading-relaxed max-w-xl mb-10"
               style={{ color: "var(--text-color)", opacity: 0.65 }}
             >
-              Open to internships and roles in backend, full-stack, and AI
-              engineering. Reach me at{" "}
+              Open to full-time, internship, and freelance roles in backend,
+              full-stack, and AI engineering. Reach me at{" "}
               <a
                 href="mailto:kartiksmarathe@gmail.com"
                 className="transition-colors duration-200 underline underline-offset-2"
@@ -204,7 +203,7 @@ const Hero = ({ onViewResume }) => {
           {[
             ["2+ yrs", "Industry experience"],
             ["React · Node · Java", "Primary stack"],
-            ["3 Hackathon wins", "Competition record"],
+            ["5 Hackathon wins", "Competition record"],
             ["M.S. CS", "Arizona State Univ."],
           ].map(([value, label]) => (
             <div key={label} className="space-y-1">

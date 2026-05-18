@@ -8,19 +8,6 @@ import Resume from "../assets/Resume.pdf";
 
 const experiences = [
   {
-    company: "LERI",
-    role: "Backend Developer",
-    location: "Remote",
-    period: "Apr 2025 — Present",
-    type: "industry",
-    description: "Production backend engineering for ride operations, security, and observability",
-    achievements: [
-      "Scaled a Node.js backend supporting 500+ users, 1,000+ rides, and 10k+ requests/day while maintaining sub-200 ms latency",
-      "Implemented RBAC, rate limiting, Twilio-based 2FA, and OpenTelemetry tracing, reducing fraud attempts by 85% and cutting debugging time by 60%",
-    ],
-    technologies: ["Node.js", "RBAC", "Rate Limiting", "Twilio", "OpenTelemetry", "Backend APIs"],
-  },
-  {
     company: "Arizona State University",
     role: "Research Aide (Volunteer)",
     location: "Tempe, AZ",
@@ -223,12 +210,6 @@ const Experience = () => (
     <div className="max-w-screen-xl mx-auto">
       {/* Section header */}
       <div className="flex items-center gap-4 mb-12">
-        <span
-          className="font-mono text-sm lg:text-base"
-          style={{ color: "var(--primary-color)" }}
-        >
-          02.
-        </span>
         <h2
           className="text-2xl lg:text-3xl font-bold"
           style={{ color: "var(--text-color)" }}

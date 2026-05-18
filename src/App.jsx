@@ -4,6 +4,7 @@ import { HiArrowUp } from "react-icons/hi";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Experience from "./components/Experience";
+import Education from "./components/Education";
 import Portfolio from "./components/Portfolio";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
@@ -82,6 +83,9 @@ function App() {
 
         {/* Experience */}
         <Experience />
+
+        {/* Education */}
+        <Education />
 
         {/* Projects */}
         <Portfolio />

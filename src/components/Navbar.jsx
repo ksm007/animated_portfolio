@@ -6,9 +6,10 @@ import { ThemeSwitcher } from "./ThemeSwitcher";
 const navLinks = [
   { href: "#about",      label: "About",      num: "01" },
   { href: "#experience", label: "Experience",  num: "02" },
-  { href: "#projects",   label: "Projects",    num: "03" },
-  { href: "#skills",     label: "Skills",      num: "04" },
-  { href: "#contact",    label: "Contact",     num: "05" },
+  { href: "#education",  label: "Education",   num: "03" },
+  { href: "#projects",   label: "Projects",    num: "04" },
+  { href: "#skills",     label: "Skills",      num: "05" },
+  { href: "#contact",    label: "Contact",     num: "06" },
 ];
 
 export default function Navbar() {
@@ -64,12 +65,6 @@ export default function Navbar() {
                       e.currentTarget.style.opacity = "0.8";
                     }}
                   >
-                    <span
-                      className="font-mono text-xs mr-1"
-                      style={{ color: "var(--primary-color)" }}
-                    >
-                      {link.num}.{" "}
-                    </span>
                     {link.label}
                   </a>
                 </li>
@@ -121,12 +116,6 @@ export default function Navbar() {
                       (e.currentTarget.style.color = "var(--text-color)")
                     }
                   >
-                    <span
-                      className="font-mono mr-1"
-                      style={{ color: "var(--primary-color)" }}
-                    >
-                      {link.num}.{" "}
-                    </span>
                     {link.label}
                   </a>
                 </li>

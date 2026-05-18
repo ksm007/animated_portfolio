@@ -10,6 +10,16 @@ A modern, responsive portfolio website built with React, Vite, and Tailwind CSS.
 - 📱 Fully responsive design
 - 🛠️ Easy to customize and extend
 
+## Contact Form Setup
+
+Create a local `.env` file from `.env.example` and add your Web3Forms key:
+
+```bash
+VITE_WEB3FORMS_ACCESS_KEY=your_web3forms_access_key_here
+```
+
+The contact form reads this key from `import.meta.env.VITE_WEB3FORMS_ACCESS_KEY`.
+
 
 ## 🙏 Acknowledgments
 

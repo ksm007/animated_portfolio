@@ -367,9 +367,6 @@ const Portfolio = () => (
     <div className="max-w-screen-xl mx-auto">
       {/* Section header */}
       <div className="flex items-center gap-4 mb-12">
-        <span className="font-mono text-sm lg:text-base" style={{ color: "var(--primary-color)" }}>
-          03.
-        </span>
         <h2 className="text-2xl lg:text-3xl font-bold" style={{ color: "var(--text-color)" }}>
           Featured Work
         </h2>

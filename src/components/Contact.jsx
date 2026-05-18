@@ -6,7 +6,7 @@ import { HiArrowUpRight, HiCheckCircle } from "react-icons/hi2";
 import { HiExclamationCircle } from "react-icons/hi";
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
-const WEB3FORMS_ACCESS_KEY = "973916b1-b29f-4ab1-81bc-cbfa940480c8";
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
 const socials = [
   {
@@ -32,7 +32,11 @@ const inputStyle = {
 };
 
 const Contact = () => {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [status, setStatus] = useState("idle"); // idle | sending | success | error
   const [result, setResult] = useState("");
   const [focused, setFocused] = useState("");
@@ -43,6 +47,11 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) return;
+    if (!WEB3FORMS_ACCESS_KEY) {
+      setStatus("error");
+      setResult("Missing Web3Forms key. Set VITE_WEB3FORMS_ACCESS_KEY.");
+      return;
+    }
 
     setStatus("sending");
     setResult("Sending...");
@@ -53,6 +62,9 @@ const Contact = () => {
       formData.append("name", form.name);
       formData.append("email", form.email);
       formData.append("message", form.message);
+      formData.append("subject", "Portfolio contact form submission");
+      formData.append("from_name", "Kartik Marathe Portfolio");
+      formData.append("botcheck", "");
 
       const response = await fetch(WEB3FORMS_ENDPOINT, {
         method: "POST",
@@ -86,12 +98,6 @@ const Contact = () => {
       <div className="max-w-screen-xl mx-auto">
         {/* Section header */}
         <div className="flex items-center gap-4 mb-12">
-          <span
-            className="font-mono text-sm lg:text-base"
-            style={{ color: "var(--primary-color)" }}
-          >
-            05.
-          </span>
           <h2
             className="text-2xl lg:text-3xl font-bold"
             style={{ color: "var(--text-color)" }}
@@ -117,7 +123,7 @@ const Contact = () => {
               className="text-2xl lg:text-3xl font-bold leading-snug"
               style={{ color: "var(--text-color)" }}
             >
-              Open to internships, roles, and interesting collaborations
+              Open to full-time, freelance, and interesting collaborations
               <span style={{ color: "var(--primary-color)" }}>
                 {" "}
                 that care about clarity and execution.
@@ -304,6 +310,16 @@ const Contact = () => {
                       }}
                     />
                   </div>
+
+                  <input
+                    type="text"
+                    name="botcheck"
+                    className="hidden"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    defaultValue=""
+                  />
 
                   {/* Email */}
                   <div>

@@ -1,17 +1,15 @@
 import { motion } from "framer-motion";
-import Reveal from "./Reveal";
-import { FaGraduationCap } from "react-icons/fa";
-import { HiOutlineCalendar, HiOutlineChevronRight } from "react-icons/hi";
+import { HiOutlineChevronRight, HiOutlineCalendar } from "react-icons/hi";
 import { IoLocationSharp } from "react-icons/io5";
-import { BsBuilding } from "react-icons/bs";
+import { HiOutlineAcademicCap } from "react-icons/hi2";
 
 const education = [
   {
-    degree: "Master of Science in Computer Science",
-    institution: "ARIZONA STATE UNIVERSITY",
+    degree: "Master of Science — Computer Science",
+    institution: "Arizona State University",
     location: "Tempe, AZ",
-    period: "Aug 2024 - May 2026",
-    grade: "GPA: 4.0/4.0",
+    period: "Aug 2024 — May 2026",
+    gpa: "4.0 / 4.0",
     type: "masters",
     coursework: [
       "Cloud Computing",
@@ -20,212 +18,206 @@ const education = [
       "Data Visualization",
     ],
     highlights: [
-      "Selected for graduate studies with scholarship",
-      "Focus on advanced computing and data visualization techniques",
+      "Graduate Research Aide — built LLM-assisted tech debt analyzer processing 200+ files across 5+ repositories with sub-second query performance over 50k+ code entities",
+      "5× hackathon placements in applied AI, full-stack, and systems engineering competitions",
+      "Focus area: backend architecture, distributed systems, and applied AI tooling",
     ],
   },
   {
-    degree: "Bachelor of Engineering in Electronics and Communication",
-    institution: "R.V. COLLEGE OF ENGINEERING",
-    location: "Bengaluru, India",
-    period: "Aug 2018 - July 2022",
-    grade: "GPA: 3.47/4.0",
+    degree: "Bachelor of Engineering — Electronics & Communication",
+    institution: "R.V. College of Engineering",
+    location: "Bangalore, India",
+    period: "Aug 2018 — May 2022",
+    gpa: "3.47 / 4.0",
     type: "bachelors",
     coursework: [
       "Database Management Systems",
       "Intelligent Systems",
-      "Data Structures and Algorithms",
+      "Data Structures & Algorithms",
       "Web Programming",
     ],
     highlights: [
-      "Active member of Team Chimera - Formula Student Team",
-      "Participated in research projects and technical competitions",
+      "Data Acquisition Engineer on Team Chimera Formula Student EV — built LTE telemetry system transmitting 8+ live data streams (voltage, SoC, temperature) with real-time UI",
+      "Research Intern at Indian Institute of Science (IISc) — developed Python ETL pipelines processing 5 BLE sensor streams at 100+ Hz for clinical IoT research",
     ],
   },
 ];
 
-const getTypeColor = (type) => {
-  switch (type) {
-    case "masters":
-      return {
-        badge:
-          "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 border-amber-200 dark:border-amber-700",
-        icon: "bg-amber-100 text-amber-600 dark:bg-amber-900/60 dark:text-amber-300",
-        accent: "border-l-amber-500",
-        dot: "bg-amber-500",
-        glow: "shadow-amber-500/20",
-      };
-    case "bachelors":
-      return {
-        badge:
-          "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300 border-teal-200 dark:border-teal-700",
-        icon: "bg-teal-100 text-teal-600 dark:bg-teal-900/60 dark:text-teal-300",
-        accent: "border-l-teal-500",
-        dot: "bg-teal-500",
-        glow: "shadow-teal-500/20",
-      };
-    default:
-      return {
-        badge:
-          "bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-300 border-primary-200 dark:border-primary-700",
-        icon: "bg-primary-100 text-primary-600 dark:bg-primary-900/60 dark:text-primary-300",
-        accent: "border-l-primary-500",
-        dot: "bg-primary-500",
-        glow: "shadow-primary-500/20",
-      };
-  }
+const TYPE_CONFIG = {
+  masters: {
+    badge: "bg-blue-500/15 text-blue-300 border-blue-500/30",
+    icon: "bg-blue-500/15 text-blue-300",
+    dot: "bg-blue-500",
+    accentColor: "#3b82f6",
+    label: "Graduate",
+  },
+  bachelors: {
+    badge: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
+    icon: "bg-emerald-500/15 text-emerald-300",
+    dot: "bg-emerald-500",
+    accentColor: "#10b981",
+    label: "Undergraduate",
+  },
 };
 
-const Education = () => {
+const EducationCard = ({ edu, index }) => {
+  const cfg = TYPE_CONFIG[edu.type];
+
   return (
-    <div
-      className="py-16 md:py-24 bg-gradient-to-b from-transparent to-primary-50/20 dark:to-primary-950/10"
-      id="education"
+    <motion.div
+      initial={{ opacity: 0, x: -24 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.45, delay: index * 0.12 }}
+      viewport={{ once: true }}
+      style={{
+        backgroundColor: "var(--card-bg)",
+        border: "1px solid var(--card-border)",
+        borderLeftWidth: "4px",
+        borderLeftColor: cfg.accentColor,
+        borderRadius: "1rem",
+        overflow: "hidden",
+      }}
     >
-      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal>
-          <div className="section-shell px-6 py-8 sm:px-8 sm:py-10 mb-12 text-center">
-            <p className="section-kicker justify-center mb-4">Foundation</p>
-            <h2 className="section-title mb-4">
-              My <em>Education</em>
-            </h2>
-            <p className="section-copy text-base sm:text-lg mx-auto">
-              Academic foundation powering my engineering journey
-            </p>
-          </div>
-
-          {/* Vertical Timeline */}
-          <div className="relative">
-            {/* Central timeline line */}
-            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/10 via-primary/40 to-primary/10" />
-
-            <div className="space-y-8 md:space-y-12">
-              {education.map((edu, index) => {
-                const colors = getTypeColor(edu.type);
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -40 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.15 }}
-                    viewport={{ once: true }}
-                    className="relative pl-14 md:pl-20"
-                  >
-                    {/* Timeline dot */}
-                    <div
-                      className={`absolute left-4 md:left-6 top-6 w-5 h-5 rounded-full ${colors.dot} ring-4 ring-background shadow-lg ${colors.glow} z-10`}
-                    >
-                      <div
-                        className={`absolute inset-0 rounded-full ${colors.dot} animate-ping opacity-30`}
-                      />
-                    </div>
-
-                    {/* Education Card */}
-                    <motion.div
-                      whileHover={{ y: -3, scale: 1.005 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 25,
-                      }}
-                      className={`relative bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border-l-4 ${colors.accent}`}
-                    >
-                      {/* Card Header */}
-                      <div className="p-5 sm:p-6 pb-0">
-                        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
-                          <div className="flex items-start gap-3 sm:gap-4">
-                            <div
-                              className={`p-2.5 rounded-xl ${colors.icon} flex-shrink-0`}
-                            >
-                              <FaGraduationCap size={20} />
-                            </div>
-                            <div className="min-w-0">
-                              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-0.5 leading-tight">
-                                {edu.degree}
-                              </h3>
-                              <div className="flex items-center gap-2 text-muted-foreground font-medium text-sm sm:text-base">
-                                <BsBuilding className="flex-shrink-0 text-primary/60" />
-                                <span className="truncate">
-                                  {edu.institution}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          {/* Period badge */}
-                          <div
-                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border ${colors.badge} whitespace-nowrap flex-shrink-0`}
-                          >
-                            <HiOutlineCalendar className="w-3.5 h-3.5" />
-                            {edu.period}
-                          </div>
-                        </div>
-
-                        {/* Location + GPA */}
-                        <div className="flex items-center gap-3 text-sm text-muted-foreground mb-3">
-                          <div className="flex items-center gap-1.5">
-                            <IoLocationSharp className="text-primary/50 flex-shrink-0 w-4 h-4" />
-                            <span>{edu.location}</span>
-                          </div>
-                          <span>·</span>
-                          <span className="font-semibold text-primary">
-                            {edu.grade}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Divider */}
-                      <div className="mx-5 sm:mx-6 border-t border-border/40" />
-
-                      {/* Coursework */}
-                      <div className="p-5 sm:p-6 pt-4 pb-3">
-                        <h4 className="text-xs font-semibold text-muted-foreground mb-2.5 uppercase tracking-wider">
-                          Relevant Coursework
-                        </h4>
-                        <div className="flex flex-wrap gap-1.5">
-                          {edu.coursework.map((course, i) => (
-                            <span
-                              key={i}
-                              className="px-2.5 py-1 rounded-md text-xs font-medium bg-primary/5 text-primary/80 border border-primary/10 whitespace-nowrap"
-                            >
-                              {course}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Highlights */}
-                      <div className="px-5 sm:px-6 pb-5 sm:pb-6">
-                        <ul className="space-y-2">
-                          {edu.highlights.map((highlight, i) => (
-                            <motion.li
-                              key={i}
-                              initial={{ opacity: 0, x: -10 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              transition={{
-                                duration: 0.3,
-                                delay: index * 0.1 + i * 0.05,
-                              }}
-                              viewport={{ once: true }}
-                              className="flex items-start gap-2.5 text-sm leading-relaxed group"
-                            >
-                              <HiOutlineChevronRight className="w-4 h-4 text-primary/60 mt-0.5 flex-shrink-0 group-hover:text-primary transition-colors" />
-                              <span className="text-foreground/85 group-hover:text-foreground transition-colors">
-                                {highlight}
-                              </span>
-                            </motion.li>
-                          ))}
-                        </ul>
-                      </div>
-                    </motion.div>
-                  </motion.div>
-                );
-              })}
+      <motion.div
+        whileHover={{ y: -3 }}
+        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+        className="p-5 sm:p-6"
+      >
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+          <div className="flex items-start gap-3">
+            <div className={`p-2.5 rounded-xl flex-shrink-0 ${cfg.icon}`}>
+              <HiOutlineAcademicCap size={18} />
+            </div>
+            <div className="min-w-0">
+              <h3
+                className="text-base lg:text-lg font-bold leading-tight mb-0.5"
+                style={{ color: "var(--text-color)" }}
+              >
+                {edu.degree}
+              </h3>
+              <p
+                className="text-sm font-medium"
+                style={{ color: "var(--primary-color)", opacity: 0.85 }}
+              >
+                {edu.institution}
+              </p>
             </div>
           </div>
-        </Reveal>
-      </div>
-    </div>
+
+          <div className="flex flex-col items-start sm:items-end gap-2 flex-shrink-0">
+            <span
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border whitespace-nowrap ${cfg.badge}`}
+            >
+              <HiOutlineCalendar size={12} />
+              {edu.period}
+            </span>
+            <div
+              className="flex items-center gap-3 text-xs"
+              style={{ color: "var(--text-color)", opacity: 0.5 }}
+            >
+              <span className="flex items-center gap-1">
+                <IoLocationSharp
+                  size={13}
+                  style={{ color: "var(--primary-color)", opacity: 0.7 }}
+                />
+                {edu.location}
+              </span>
+              {edu.gpa && (
+                <>
+                  <span>·</span>
+                  <span
+                    className="font-semibold"
+                    style={{ color: "var(--primary-color)" }}
+                  >
+                    GPA {edu.gpa}
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-4" style={{ borderTop: "1px solid var(--card-border)" }} />
+
+        {/* Highlights */}
+        <ul className="space-y-3 mb-5">
+          {edu.highlights.map((item, i) => (
+            <motion.li
+              key={i}
+              initial={{ opacity: 0, x: -8 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: index * 0.08 + i * 0.05 }}
+              viewport={{ once: true }}
+              className="flex items-start gap-2.5 text-sm lg:text-base leading-relaxed"
+            >
+              <HiOutlineChevronRight
+                size={15}
+                className="flex-shrink-0 mt-0.5"
+                style={{ color: "var(--primary-color)" }}
+              />
+              <span style={{ color: "var(--text-color)", opacity: 0.8 }}>
+                {item}
+              </span>
+            </motion.li>
+          ))}
+        </ul>
+
+        {/* Coursework chips */}
+        <div>
+          <p
+            className="text-xs font-bold uppercase tracking-widest mb-2.5"
+            style={{ color: "var(--text-color)", opacity: 0.4 }}
+          >
+            Relevant Coursework
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {edu.coursework.map((course) => (
+              <span
+                key={course}
+                className="text-xs font-medium px-2.5 py-1 rounded-full"
+                style={{
+                  backgroundColor:
+                    "color-mix(in srgb, var(--primary-color) 10%, transparent)",
+                  color: "var(--primary-color)",
+                  border:
+                    "1px solid color-mix(in srgb, var(--primary-color) 20%, transparent)",
+                }}
+              >
+                {course}
+              </span>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
+
+const Education = () => (
+  <section id="education" className="py-20 lg:py-28 px-6 sm:px-10 lg:px-16">
+    <div className="max-w-screen-xl mx-auto">
+      {/* Section header */}
+      <div className="flex items-center gap-4 mb-12">
+        <h2
+          className="text-2xl lg:text-3xl font-bold"
+          style={{ color: "var(--text-color)" }}
+        >
+          Education
+        </h2>
+        <div
+          className="flex-1 h-px max-w-xs"
+          style={{ backgroundColor: "var(--card-border)" }}
+        />
+      </div>
+
+      <div className="space-y-6">
+        {education.map((edu, i) => (
+          <EducationCard key={edu.institution} edu={edu} index={i} />
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default Education;
