@@ -1,34 +1,40 @@
-name: Deploy to GitHub Pages
+name: Deploy to VPS
 
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Deploy latest code on VPS over SSH
+        uses: appleboy/ssh-action@v1.2.0
         with:
-          node-version: "18"
-          cache: "npm"
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          script_stop: true
+          script: |
+            set -e
 
-      - name: Install dependencies
-        run: npm ci
+            export NVM_DIR="$HOME/.nvm"
+            if [ -s "$NVM_DIR/nvm.sh" ]; then
+              . "$NVM_DIR/nvm.sh"
+            fi
 
-      - name: Build
-        run: npm run build
+            cd ~/ksm/animated-portfolio
+            git pull origin main
+            npm ci
+            npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+            if pm2 describe animated-portfolio >/dev/null 2>&1; then
+              pm2 restart animated-portfolio --update-env
+            else
+              pm2 start ecosystem.config.cjs
+            fi
+
+            pm2 save

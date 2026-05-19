@@ -9,6 +9,8 @@
     "deploy": "gh-pages -d dist --dotfiles",
     "deploy-force": "gh-pages -d dist --dotfiles --force",
     "build": "vite build",
+    "start": "node server.mjs",
+    "start:pm2": "node server.mjs",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
