@@ -1,230 +1,138 @@
 import { motion } from "framer-motion";
-import profileImage from "../assets/profpic.png";
 import { AiOutlineGithub, AiOutlineLinkedin } from "react-icons/ai";
+import { HiArrowRight, HiArrowUpRight } from "react-icons/hi2";
 import { SiDevpost } from "react-icons/si";
+import profileImage from "../assets/profpic.png";
 import Resume from "../assets/Resume.pdf";
 
-const Hero = ({ onViewResume }) => {
+const proofItems = [
+  { value: "2+ years", label: "Shipping production software" },
+  { value: "5 wins", label: "Hackathon placements across AI + product builds" },
+  { value: "100k+/day", label: "Traffic supported across maintained APIs" },
+];
+
+const capabilityItems = [
+  "Strong fit for product engineering and backend roles",
+  "Useful for startup teams that need someone who can ship end to end",
+  "AI tooling built with actual deployment and product constraints in mind",
+];
+
+const socialLinks = [
+  { href: "https://github.com/ksm007", label: "GitHub", Icon: AiOutlineGithub },
+  { href: "https://linkedin.com/in/kartik-marathe", label: "LinkedIn", Icon: AiOutlineLinkedin },
+  { href: "https://devpost.com/ksm007", label: "Devpost", Icon: SiDevpost },
+];
+
+export default function Hero({ onViewResume }) {
   return (
-    <section
-      id="about"
-      className="min-h-screen flex items-center px-6 sm:px-10 lg:px-16 pt-20 pb-16"
-    >
-      <div className="max-w-screen-xl mx-auto w-full">
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
-          {/* ── Left: text ─────────────────────────────── */}
-          <div>
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="font-mono text-sm lg:text-base mb-5"
-              style={{ color: "var(--primary-color)" }}
-            >
-              Hi, my name is
-            </motion.p>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05] mb-4"
-              style={{ color: "var(--text-color)" }}
-            >
-              Kartik Marathe.
-            </motion.h1>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1] mb-7"
-              style={{ color: "var(--text-color)", opacity: 0.55 }}
-            >
-              I engineer systems that scale and products that ship.
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-base lg:text-lg leading-relaxed max-w-xl mb-4"
-              style={{ color: "var(--text-color)", opacity: 0.75 }}
-            >
-              I&apos;m a computer science graduate student at{" "}
-              <span style={{ color: "var(--primary-color)" }}>
-                Arizona State University
-              </span>{" "}
-              specializing in backend systems, full-stack engineering, and applied
-              AI. I care about clean architecture, production reliability, and
-              building software that solves real problems at scale.
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.35 }}
-              className="text-base leading-relaxed max-w-xl mb-10"
-              style={{ color: "var(--text-color)", opacity: 0.65 }}
-            >
-              Open to full-time, internship, and freelance roles in backend,
-              full-stack, and AI engineering. Reach me at{" "}
-              <a
-                href="mailto:kartiksmarathe@gmail.com"
-                className="transition-colors duration-200 underline underline-offset-2"
-                style={{ color: "var(--primary-color)" }}
-              >
-                kartiksmarathe@gmail.com
-              </a>
-              .
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.45 }}
-              className="flex flex-wrap items-center gap-4 mb-10"
-            >
-              <motion.button
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={onViewResume || (() => window.open(Resume, "_blank"))}
-                className="font-mono text-sm font-semibold border rounded px-6 py-3 transition-all duration-200"
-                style={{ color: "var(--primary-color)", borderColor: "var(--primary-color)" }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "color-mix(in srgb, var(--primary-color) 10%, transparent)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "transparent";
-                }}
-              >
-                View Résumé
-              </motion.button>
-
-              <motion.a
-                whileHover={{ y: -2 }}
-                href="#projects"
-                className="font-mono text-sm font-semibold px-6 py-3 rounded transition-all duration-200"
-                style={{
-                  backgroundColor: "var(--primary-color)",
-                  color: "var(--bg-color)",
-                }}
-              >
-                See Projects
-              </motion.a>
-            </motion.div>
-
-            {/* Social links */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.55 }}
-              className="flex items-center gap-5"
-            >
-              {[
-                { href: "https://github.com/ksm007", Icon: AiOutlineGithub, label: "GitHub" },
-                { href: "https://linkedin.com/in/kartik-marathe", Icon: AiOutlineLinkedin, label: "LinkedIn" },
-                { href: "https://devpost.com/ksm007", Icon: SiDevpost, label: "Devpost" },
-              ].map(({ href, Icon, label }) => (
-                <motion.a
-                  key={label}
-                  whileHover={{ y: -3 }}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="text-2xl lg:text-3xl transition-colors duration-200"
-                  style={{ color: "var(--text-color)", opacity: 0.6 }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "var(--primary-color)";
-                    e.currentTarget.style.opacity = "1";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = "var(--text-color)";
-                    e.currentTarget.style.opacity = "0.6";
-                  }}
-                >
-                  <Icon />
-                </motion.a>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* ── Right: profile image ───────────────────── */}
+    <section id="about" className="px-6 pb-16 pt-28 sm:px-10 lg:px-16 lg:pb-24 lg:pt-32">
+      <div className="mx-auto grid max-w-screen-xl gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14">
+        <div className="space-y-8">
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="flex justify-center lg:justify-end"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45 }}
+            className="space-y-6"
           >
-            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-              {/* Decorative border offset */}
-              <div
-                className="absolute inset-0 rounded-full translate-x-3 translate-y-3 border-2"
-                style={{ borderColor: "var(--primary-color)" }}
-              />
-              {/* Image */}
-              <div
-                className="relative w-full h-full rounded-full overflow-hidden border-2"
-                style={{ borderColor: "var(--card-border)" }}
-              >
-                {profileImage ? (
-                  <img
-                    src={profileImage}
-                    alt="Kartik Marathe"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  /* Placeholder: swap profileImage import path to update */
-                  <div
-                    className="w-full h-full flex items-center justify-center text-4xl font-bold"
-                    style={{
-                      backgroundColor: "var(--card-bg)",
-                      color: "var(--primary-color)",
-                    }}
-                  >
-                    KM
-                  </div>
-                )}
+            <span className="eyebrow-badge">Open to software roles, startup teams, and product-minded engineering work</span>
+
+            <div className="space-y-5">
+              <h1 className="section-title max-w-4xl">
+                I build <em>AI products</em> and production-grade web systems for teams that need someone who can turn ambiguity into shipped software.
+              </h1>
+              <p className="section-copy text-base sm:text-lg">
+                I am Kartik Marathe, a computer science graduate student at Arizona State University with experience across backend
+                architecture, full-stack product delivery, CI/CD, and applied AI. I am actively seeking software engineering roles while
+                also targeting startup environments where ownership, speed, and product judgment matter.
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex flex-wrap gap-4"
+          >
+            <button type="button" onClick={onViewResume || (() => window.open(Resume, "_blank"))} className="primary-button">
+              View resume
+            </button>
+            <a href="#projects" className="secondary-button">
+              Selected work
+              <HiArrowRight className="text-lg" />
+            </a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.18 }}
+            className="grid gap-4 sm:grid-cols-3"
+          >
+            {proofItems.map((item) => (
+              <div key={item.label} className="editorial-stat">
+                <strong>{item.value}</strong>
+                <span>{item.label}</span>
               </div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.24 }}
+            className="hero-panel p-6 sm:p-7"
+          >
+            <div className="mb-5 flex items-center justify-between gap-4">
+              <p className="section-kicker">How I work</p>
+              <p className="text-xs uppercase tracking-[0.2em]" style={{ color: "var(--muted-strong)" }}>
+                Open to full-time roles and startup opportunities
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              {capabilityItems.map((item) => (
+                <div key={item} className="rounded-[1.2rem] border p-4" style={{ borderColor: "var(--soft-border)" }}>
+                  <p className="text-sm leading-6" style={{ color: "var(--text-color)" }}>
+                    {item}
+                  </p>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
 
-        {/* Stats row */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-16 pt-10 border-t"
-          style={{ borderColor: "var(--card-border)" }}
+          initial={{ opacity: 0, y: 24, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.65, delay: 0.12 }}
+          className="relative"
         >
-          {[
-            ["2+ yrs", "Industry experience"],
-            ["React · Node · Java", "Primary stack"],
-            ["5 Hackathon wins", "Competition record"],
-            ["M.S. CS", "Arizona State Univ."],
-          ].map(([value, label]) => (
-            <div key={label} className="space-y-1">
-              <p
-                className="text-lg lg:text-xl font-bold font-mono"
-                style={{ color: "var(--primary-color)" }}
-              >
-                {value}
+          <div className="hero-portrait-shell">
+            <div className="hero-portrait-frame">
+              <img src={profileImage} alt="Kartik Marathe" className="h-full w-full object-cover" />
+            </div>
+
+            <div className="hero-availability-card">
+              <p className="text-xs uppercase tracking-[0.22em]" style={{ color: "var(--muted-strong)" }}>
+                Current focus
               </p>
-              <p
-                className="text-xs lg:text-sm uppercase tracking-widest"
-                style={{ color: "var(--text-color)", opacity: 0.55 }}
-              >
-                {label}
+              <p className="mt-2 text-lg font-semibold" style={{ color: "var(--text-color)" }}>
+                Backend platforms, product engineering, and startup-ready AI interfaces with real deployment constraints.
               </p>
             </div>
-          ))}
+
+            <div className="hero-social-strip">
+              {socialLinks.map(({ href, label, Icon }) => (
+                <a key={label} href={href} target="_blank" rel="noreferrer" className="hero-social-link" aria-label={label}>
+                  <Icon />
+                  <span>{label}</span>
+                  <HiArrowUpRight />
+                </a>
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

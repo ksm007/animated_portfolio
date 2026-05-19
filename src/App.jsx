@@ -73,11 +73,13 @@ function App() {
   if (isLoading) return <LoadingScreen onComplete={() => setIsLoading(false)} />;
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "var(--bg-color)" }}>
+    <div className="min-h-screen app-shell" style={{ backgroundColor: "var(--bg-color)" }}>
+      <div className="ambient-orb ambient-orb-one" />
+      <div className="ambient-orb ambient-orb-two" />
       <ScrollProgress />
       <Navbar />
 
-      <main>
+      <main className="relative z-10">
         {/* Hero / About */}
         <Hero onViewResume={openResume} />
 
